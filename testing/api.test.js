@@ -96,3 +96,39 @@ test('DELETE /users/:id', async () => {
     expect(response.statusCode).toBe(200);
   });
   
+
+
+
+
+
+// PATCH
+
+// Test updating a user
+test('PATCH /users/:id', async () => {
+    const response = await request(app)
+      .patch('/users/1')
+      .send({ username: 'updated', password: 'updatedpassword' });
+  
+    expect(response.statusCode).toBe(200);
+    expect(response.body.username).toBe('updated');
+    expect(response.body.password).toBe('updatedpassword');
+  });
+  
+  // Test updating a class
+  test('PATCH /classes/:id', async () => {
+    const response = await request(app)
+      .patch('/classes/1')
+      .send({
+        class_name: 'Updated Class',
+        class_description: 'This is an updated description of the class.',
+        class_subject: 'Updated Subject',
+        duration: 120
+      });
+  
+    expect(response.statusCode).toBe(200);
+    expect(response.body.class_name).toBe('Updated Class');
+    expect(response.body.class_description).toBe('This is an updated description of the class.');
+    expect(response.body.class_subject).toBe('Updated Subject');
+    expect(response.body.duration).toBe(120);
+  });
+  
