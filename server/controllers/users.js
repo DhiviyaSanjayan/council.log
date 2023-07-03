@@ -4,6 +4,16 @@ const User = require('../models/Users');
 const Token = require('../models/Token');
 
 class UserController {
+
+    static async getAllUsers(req, res) {
+        try {
+            const users = await User.getAll();
+            res.json(users);
+        } catch (error) {
+            res.status(500).json({ error: 'Unable to fetch users.' });
+        }
+    }
+
     static async getUserById(req, res) {
         const { id } = req.params;
         try {
