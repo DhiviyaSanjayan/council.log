@@ -1,4 +1,82 @@
 :root {
   --background-blue: #4c73d7;
+  --hover-background-blue: #2f4a8c;
   --crystal-pink: #e0b1a9;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+input {
+  display: block;
+  font-size: 2rem;
+  padding: 0.5rem;
+  font-weight: 500;
+  width: 80%;
+  margin-bottom: 2rem;
+  border: 3px solid black;
+}
+button {
+  cursor: pointer;
+}
+label {
+  display: block;
+  font-weight: 400;
+  font-size: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+.body-button {
+  background-color: var(--background-blue);
+  padding: 1rem;
+  font-weight: normal;
+  color: white;
+  font-size: 1.5rem;
+  border: 0;
+  font-weight: 700;
+}
+.body-button:hover {
+  background-color: var(--hover-background-blue);
+}
+.crystal-colour-word {
+  color: var(--crystal-pink);
+}
+.header-banner {
+  background-color: black;
+  color: white;
+  padding: 0.5vw 20%;
+  font-size: 2rem;
+  font-weight: 300;
+}
+.welcome-banner {
+  background-color: var(--background-blue);
+  color: white;
+  padding: 3vw 20%;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  align-items: center;
+}
+
+.welcome-title-section h1 {
+  font-size: 3rem;
+  padding-bottom: 20px;
+}
+
+.banner-button {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.banner-button:hover {
+  text-decoration: underline 3px;
+  color: #bbc8ea;
+}
+main {
+  padding: 4vw 20%;
+}
+.body-title {
+  font-size: 4rem;
+  margin-bottom: 4vw;
 }
