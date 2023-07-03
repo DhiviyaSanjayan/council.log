@@ -9,6 +9,11 @@ test('GET /api', async () => {
   expect(response.body.message).toBe('Hello, World!');
 });
 
+
+
+
+// POST
+
 // Test creating a new user
 test('POST /users', async () => {
   const response = await request(app)
@@ -60,3 +65,34 @@ test('POST /points_log', async () => {
   expect(response.body.points).toBe(1);
   expect(response.body.role).toBe('student');
 });
+
+
+
+
+
+// DELETE
+
+// Test deleting a user
+test('DELETE /users/:id', async () => {
+    const response = await request(app).delete('/users/1');
+    expect(response.statusCode).toBe(200);
+  });
+  
+  // Test deleting a class
+  test('DELETE /classes/:id', async () => {
+    const response = await request(app).delete('/classes/1');
+    expect(response.statusCode).toBe(200);
+  });
+  
+  // Test deleting a registration
+  test('DELETE /registrations/:id', async () => {
+    const response = await request(app).delete('/registrations/1');
+    expect(response.statusCode).toBe(200);
+  });
+  
+  // Test deleting a points log
+  test('DELETE /points_log/:id', async () => {
+    const response = await request(app).delete('/points_log/1');
+    expect(response.statusCode).toBe(200);
+  });
+  
