@@ -1,4 +1,5 @@
 const db = require('../database/db');
+require("dotenv").config();
 
 class Registration {
     constructor({ registration_id, user_id, class_id, role, registration_time }) {
