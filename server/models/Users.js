@@ -1,4 +1,3 @@
-const { getPointsLog } = require('../controllers/users');
 const db = require('../database/db');
 require("dotenv").config();
 
@@ -57,30 +56,6 @@ class User {
     async delete() {
         await db.query('DELETE FROM users WHERE user_id = $1', [this.id]);
     }
-
-
 }
 
-class PointsLog {
-    constructor({ log_id, user_id, points, role, time_logged }) {
-        this.logId = log_id;
-        this.userId = user_id;
-        this.points = points;
-        this.role = role;
-        this.timeLogged = time_logged;
-    }
-
-    async getPointsLog(id) {
-        try {
-            const response = await db.query('SELECT * FROM points_log WHERE user_id = $1', [this.id]);
-            const pointsLog = response.rows.map((row) => new PointsLog(row));
-            console.log(pointsLog);
-            return pointsLog;
-        } catch (error) {
-            console.error('Error retrieving points log', error);
-            throw new Error('Unable to retrieve points log.');
-        }
-    }
-}
-
-module.exports = { User, getPointsLog }
+module.exports = User;

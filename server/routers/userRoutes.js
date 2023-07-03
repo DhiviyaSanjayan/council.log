@@ -3,8 +3,8 @@ const UserController = require('../controllers/users');
 
 const router = express.Router();
 
+
 router.get('/:id', UserController.getUserById);
-router.get('/:id/pointslog', UserController.getPointsLog);
 router.post('/', UserController.createUser);
 router.put('/:id', UserController.updateUser);
 router.delete('/:id', UserController.deleteUser);
