@@ -1,4 +1,5 @@
-const { Registration } = require('../models/Registration');
+const Registration = require('../models/Registration');
+
 
 class RegistrationController {
     static async getAllRegistrations(req, res) {
