@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 require('dotenv').config();
-const { User, PointsLog } = require('../models/Users');
+const User = require('../models/Users');
 const Token = require('../models/Token');
 
 class UserController {
@@ -80,18 +80,6 @@ class UserController {
         }
     }
 
-    static async getPointsLog(req, res) {
-        const userId = req.params.id;
-        console.log(userId);
-
-        try {
-            const user = await User.getById(userId);
-            const pointsLog = await user.getPointsLog();
-            res.json({ pointsLog });
-        } catch (error) {
-            res.status(500).json({ error: 'Unable to retrieve points log.' });
-        }
-    }
 }
 
 module.exports = UserController;

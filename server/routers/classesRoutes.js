@@ -5,7 +5,7 @@ const authenticator = require('../middleware/authenticator');
 const router = express.Router();
 
 
-router.get('/', ClassesController.getAllClasses);
+router.get('/', authenticator, ClassesController.getAllClasses);
 router.get('/:id', ClassesController.getClassById);
 router.post('/', ClassesController.createClass);
 router.put('/:id', ClassesController.updateClass);
