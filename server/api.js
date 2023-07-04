@@ -23,6 +23,13 @@ api.use('/registration', registrationRoutes);
 
 api.use('/points', pointsLogRoutes);
 
+
 api.use('/token', tokenRoutes)
+
+api.get('/', (req, res) => {
+    res.json({ message: 'Server is running' });
+});
+  
+
 
 module.exports = api;
