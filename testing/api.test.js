@@ -2,6 +2,12 @@
 const request = require('supertest');
 const app = require('../server/api');
 
+// Make sure server is running
+test('Server should respond to GET /', async () => {
+    const response = await request(app).get('/');
+    expect(response.statusCode).toBe(200);
+  });
+
 // GET
 // Test getting user by id
 test('GET /user/:id', async () => {
