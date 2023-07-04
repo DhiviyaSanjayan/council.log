@@ -21,22 +21,30 @@ submitBtn.addEventListener("click", async (e) => {
     invalidEmail.classList.remove("hidden");
   }
   // Check if email is registered before
-  if (checkEmailIsUsed(form.email.value)) {
+  if (await checkEmailIsUsed(form.email.value)) {
     return usedEmail.classList.remove("hidden");
   }
   // Check if username is used before
-  if (checkUsernameIsUsed(form.username.value)) {
+  if (await checkUsernameIsUsed(form.username.value)) {
     return usedUsername.classList.remove("hidden");
   }
   //   Check if two password are the same
   if (password.value !== verifyPassword.value) {
     differentPassword.classList.remove("hidden");
   }
-
+  console.log(
+    form.email.value,
+    form.username.value,
+    password.value,
+    form.firstName.value,
+    form.lastName.value
+  );
   await registerUser(
     form.email.value,
     form.username.value,
-    form.password.value
+    password.value,
+    form.firstName.value,
+    form.lastName.value
   );
 });
 
@@ -46,7 +54,7 @@ function validateEmail(email) {
   ).test(email);
 }
 async function checkEmailIsUsed(email) {
-  const res = await fetch("http://localhost:3000/user/checkEmail", {
+  const res = await fetch("http://localhost:3000/user/email", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -62,7 +70,7 @@ async function checkEmailIsUsed(email) {
   }
 }
 async function checkUsernameIsUsed(username) {
-  const res = await fetch("http://localhost:3000/user/checkEmail", {
+  const res = await fetch("http://localhost:3000/user/username", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -77,8 +85,8 @@ async function checkUsernameIsUsed(username) {
     return true;
   }
 }
-async function registerUser(email, username, password) {
-  const res = await fetch("http://localhost:3000/users", {
+async function registerUser(email, username, password, firstName, lastName) {
+  const res = await fetch("http://localhost:3000/user/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -87,6 +95,8 @@ async function registerUser(email, username, password) {
       email,
       username,
       password,
+      first_name: firstName,
+      last_name: lastName,
       isTeacher: false,
       isStudent: false,
     }),
