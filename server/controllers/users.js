@@ -99,9 +99,11 @@ class UserController {
     const rounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
     try {
       const data = req.body;
+
       const salt = await bcrypt.genSalt(rounds);
       data.password = await bcrypt.hash(data.password, salt);
       const result = await User.create(data);
+      console.log(result);
       res.status(201).send(result);
     } catch (error) {
       res.status(400).json({ error: error.message });

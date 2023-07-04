@@ -20,7 +20,7 @@ input {
   font-size: 1.8rem;
   padding: 0.5rem;
   font-weight: 500;
-  width: 80%;
+  width: 100%;
   margin-bottom: 2rem;
   border: 2px solid black;
   border-radius: 10px;
@@ -155,7 +155,11 @@ main {
 .warning.hidden {
   display: none;
 }
-
+.first-last-name-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
 .dashboard-greeting {
   margin-bottom: 20px;
 }
