@@ -105,6 +105,6 @@ async function registerUser(email, username, password, firstName, lastName) {
     const result = await res.json();
 
     alert("Registered successfully");
-    window.location.replace("./login.html");
+    window.location.replace("../login");
   }
 }
