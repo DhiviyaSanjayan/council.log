@@ -113,4 +113,61 @@ describe("Server Tests", () => {
     });
   });
   
+
+
+  describe("PointsLog API", () => {
+    // Test to get all points logs
+    it('GET /points', async () => {
+      const response = await request(app).get('/points');
+      expect(response.statusCode).toBe(200);
+    });
+  
+    // Test to get a points log by id
+    it('GET /points/:id', async () => {
+      const response = await request(app).get('/points/1');
+      expect(response.statusCode).toBe(200);
+      expect(response.body.logId).toBe(1);
+    });
+  
+    // Test to create a new points log
+    it('POST /points', async () => {
+      const response = await request(app)
+        .post('/points')
+        .send({
+          userId: 1,
+          points: 10,
+          role: 'student'
+        });
+
+      expect(response.statusCode).toBe(201);
+      expect(response.body.points).toBe(10);
+      expect(response.body.role).toBe('student');
+    });
+
+    // Test to update a points log
+    it('PUT /points/:id', async () => {
+      const response = await request(app)
+        .put('/points/1')
+        .send({
+          userId: 2,
+          points: 20,
+          role: 'teacher'
+        });
+
+      expect(response.statusCode).toBe(200);
+      expect(response.body.points).toBe(20);
+      expect(response.body.role).toBe('teacher');
+    });
+
+    // Test to delete a points log
+    it('DELETE /points/:id', async () => {
+      const response = await request(app).delete('/points/1');
+      expect(response.statusCode).toBe(200);
+    });
+});
+
+
+
+
+
 });
