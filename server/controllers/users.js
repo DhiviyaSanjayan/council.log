@@ -24,6 +24,19 @@ class UserController {
         }
     }
 
+    static async getUserByUsername(req, res) {
+        const { username } = req.query;
+        try {
+            const user = await User.getByUsername(username);
+            console.log(user);
+            res.json(user);
+        } catch (error) {
+            console.log(error);
+            res.status(404).json({ error: 'User not found.' });
+        }
+    }
+
+
     static async createUser(req, res) {
         const { email, username, password, isStudent, isTeacher } = req.body;
         try {
@@ -91,5 +104,7 @@ class UserController {
     }
 
 }
+
+
 
 module.exports = UserController;
