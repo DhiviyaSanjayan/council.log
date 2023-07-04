@@ -59,6 +59,7 @@ class User {
             'VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING user_id';
         const values = [firstName, lastName, userEmail, userUsername, password, isStudent, isTeacher];
         const response = await db.query(query, values);
+        console.log(response);
         const newId = response.rows[0].user_id;
         return User.getById(newId);
     }
