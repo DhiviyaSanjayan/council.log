@@ -21,14 +21,27 @@ class ClassesController {
     }
 
     static async createClass(req, res) {
+        console.log("Request Body: ", req.body); // logs the incoming request body to check if all required fields are present
+    
         const { category, class_name, class_time, duration, description, teacher_id } = req.body;
+    
+        if(!category || !class_name || !class_time || !duration || !description || !teacher_id) {
+            console.log("Error: Missing field(s) in request body"); // checks if all required fields are present
+            return res.status(400).json({ error: 'Missing field(s) in request body' });
+        }
+    
         try {
-            const newClass = await Class.create({ category, class_name, class_time, duration, description, teacher_id });
-            res.status(201).json(newClass);
+            const newClass = new Class({ category, class_name, class_time, duration, description, teacher_id });
+            const createdClass = await newClass.create();
+            console.log("Created Class: ", createdClass); // logs the created class for verification
+    
+            res.status(201).json(createdClass);
         } catch (error) {
+            console.log("Error while creating class: ", error); // logs any error that occurs while trying to create a new class
             res.status(500).json({ error: 'Unable to create class.' });
         }
     }
+    
 
     static async updateClass(req, res) {
         const { id } = req.params;
