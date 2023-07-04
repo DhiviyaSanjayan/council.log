@@ -61,6 +61,22 @@ label {
   padding: 0.5vw 20%;
   font-size: 2rem;
   font-weight: 300;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.setting-icon {
+  width: 50px;
+  padding: 10px;
+  cursor: pointer;
+}
+.greeting {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+}
+.greeting-username {
+  color: white;
 }
 .logo {
   padding-right: 50px;
