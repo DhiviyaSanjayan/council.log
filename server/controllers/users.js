@@ -62,6 +62,8 @@ class UserController {
         }
     }
 
+    //update with first name and last name...
+
 
     static async updateUser(req, res) {
         const { id } = req.params;
