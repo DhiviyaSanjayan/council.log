@@ -21,9 +21,9 @@ class ClassesController {
     }
 
     static async createClass(req, res) {
-        const { name, description, teacherId } = req.body;
+        const { category, class_name, class_time, duration, description, teacher_id } = req.body;
         try {
-            const newClass = await Class.create({ name, description, teacherId });
+            const newClass = await Class.create({ category, class_name, class_time, duration, description, teacher_id });
             res.status(201).json(newClass);
         } catch (error) {
             res.status(500).json({ error: 'Unable to create class.' });
@@ -32,12 +32,15 @@ class ClassesController {
 
     static async updateClass(req, res) {
         const { id } = req.params;
-        const { name, description, teacherId } = req.body;
+        const { category, class_name, class_time, duration, description, teacher_id } = req.body;
         try {
             const classObj = await Class.getById(id);
-            classObj.name = name;
+            classObj.category = category;
+            classObj.className = class_name;
+            classObj.classTime = class_time;
+            classObj.duration = duration;
             classObj.description = description;
-            classObj.teacherId = teacherId;
+            classObj.teacherId = teacher_id;
             await classObj.update();
             res.json(classObj);
         } catch (error) {
