@@ -83,7 +83,7 @@ async function registerUser(email, username, password) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: {
+    body: JSON.stringify({
       email,
       username,
       password,
