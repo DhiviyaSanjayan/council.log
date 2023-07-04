@@ -24,7 +24,7 @@ class UserController {
   }
 
   static async getUserByUsername(req, res) {
-    const { username } = req.query;
+    const { username } = req.body;
     try {
       const user = await User.getByUsername(username);
       console.log(user);
@@ -36,7 +36,8 @@ class UserController {
   }
 
   static async getUserByEmail(req, res) {
-    const { email } = req.query;
+    const { email } = req.body;
+    console.log(email);
     try {
       const user = await User.getByEmail(email);
       console.log(user);
@@ -99,7 +100,6 @@ class UserController {
     const rounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
     try {
       const data = req.body;
-
       const salt = await bcrypt.genSalt(rounds);
       data.password = await bcrypt.hash(data.password, salt);
       const result = await User.create(data);

@@ -101,7 +101,9 @@ async function registerUser(email, username, password, firstName, lastName) {
       isStudent: false,
     }),
   });
-  if (res.status === 200) {
+  if (res.status === 201) {
+    const result = await res.json();
+    console.log(result);
     alert("Registered successfully");
   }
 }
