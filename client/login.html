@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>Florin Skills - Login</title>
+    <link rel="icon" type="image/x-icon" href="./assets/icon.svg" />
     <link rel="stylesheet" href="./assets/styles.css" />
     <script src="./assets/login.js" defer></script>
   </head>
@@ -12,21 +13,33 @@
       <span class="crystal-colour-word">Florin</span> Council
     </h3>
     <div class="welcome-banner">
+      <a href="./index.html" data-text="Home" class="banner-button"
+        ><img src="./assets/icon.svg" alt="homeicon" class="logo"
+      /></a>
       <div class="welcome-title-section">
-        <h1>Welcome to Florin Skills</h1>
+        <p>Welcome to</p>
+        <a href="./index.html" class="platform-name"><h1>Florin Skills</h1></a>
         <h3>A platform to make the community more skilful</h3>
       </div>
-      <a href="./index.html" data-text="Home" class="banner-button">Home</a>
     </div>
 
     <main>
       <h1 class="body-title">Sign In</h1>
-      <label for="email">Email</label>
-      <input type="text" name="email" id="email" />
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" />
-      <button type="submit" class="body-button">Sign In</button>
-      <p>Don't have an account?<a href="./register"></a></p>
+      <p class="incorrect-credential hidden">
+        Incorrect credientials. Please check your email and password.
+      </p>
+      <form class="log-in-form">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required />
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required />
+        <button type="submit" class="body-button" id="submit-button">
+          Sign In
+        </button>
+      </form>
+      <p class="create-account">
+        Don't have an account? <a href="./register.html">Create an account</a>
+      </p>
     </main>
   </body>
 </html>
