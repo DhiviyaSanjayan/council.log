@@ -35,6 +35,15 @@ class User {
         return new User(response.rows[0]);
     }
 
+    static async getByEmail(email) {
+        const response = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+        if (response.rows.length !== 1) {
+            throw new Error('Unable to locate user.');
+        }
+        return new User(response.rows[0]);
+    }
+
+
     static async create(data) {
         const {
             email: userEmail,

@@ -36,6 +36,18 @@ class UserController {
         }
     }
 
+    static async getUserByEmail(req, res) {
+        const { email } = req.query;
+        try {
+            const user = await User.getByEmail(email);
+            console.log(user);
+            res.json(user);
+        } catch (error) {
+            console.log(error);
+            res.status(404).json({ error: 'User not found.' });
+        }
+    }
+
 
     static async createUser(req, res) {
         const { email, username, password, isStudent, isTeacher } = req.body;
