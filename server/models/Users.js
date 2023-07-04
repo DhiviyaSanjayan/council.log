@@ -2,8 +2,10 @@ const db = require('../database/db');
 require("dotenv").config();
 
 class User {
-    constructor({ user_id, email, username, password, is_student, is_teacher, student_points, teacher_points }) {
+    constructor({ user_id, first_name, last_name, email, username, password, is_student, is_teacher, student_points, teacher_points }) {
         this.id = user_id;
+        this.firstName = first_name;
+        this.lastName = last_name;
         this.email = email;
         this.username = username;
         this.password = password;
@@ -43,28 +45,28 @@ class User {
         return new User(response.rows[0]);
     }
 
-
     static async create(data) {
         const {
+            first_name: firstName,
+            last_name: lastName,
             email: userEmail,
             username: userUsername,
             password,
             isStudent,
             isTeacher
         } = data;
-        const query = 'INSERT INTO users (email, username, password, is_student, is_teacher) ' +
-            'VALUES ($1, $2, $3, $4, $5) RETURNING user_id';
-        const values = [userEmail, userUsername, password, isStudent, isTeacher];
+        const query = 'INSERT INTO users (first_name, last_name, email, username, password, is_student, is_teacher) ' +
+            'VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING user_id';
+        const values = [firstName, lastName, userEmail, userUsername, password, isStudent, isTeacher];
         const response = await db.query(query, values);
         const newId = response.rows[0].user_id;
         return User.getById(newId);
     }
 
-
     async update() {
-        const query = 'UPDATE users SET username = $1, password = $2, is_student = $3, is_teacher = $4, ' +
-            'student_points = $5, teacher_points = $6 WHERE user_id = $7';
-        const values = [this.username, this.password, this.isStudent, this.isTeacher, this.studentPoints, this.teacherPoints, this.id];
+        const query = 'UPDATE users SET first_name = $1, last_name = $2, username = $3, password = $4, ' +
+            'is_student = $5, is_teacher = $6, student_points = $7, teacher_points = $8 WHERE user_id = $9';
+        const values = [this.firstName, this.lastName, this.username, this.password, this.isStudent, this.isTeacher, this.studentPoints, this.teacherPoints, this.id];
         await db.query(query, values);
         return this;
     }
@@ -73,6 +75,5 @@ class User {
         await db.query('DELETE FROM users WHERE user_id = $1', [this.id]);
     }
 }
-
 
 module.exports = User;
