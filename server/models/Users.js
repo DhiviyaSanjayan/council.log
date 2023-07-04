@@ -31,8 +31,18 @@ class User {
         if (response.rows.length !== 1) {
             throw new Error('Unable to locate user.');
         }
+        console.log(response.rows);
         return new User(response.rows[0]);
     }
+
+    static async getByEmail(email) {
+        const response = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+        if (response.rows.length !== 1) {
+            throw new Error('Unable to locate user.');
+        }
+        return new User(response.rows[0]);
+    }
+
 
     static async create(data) {
         const {
@@ -63,5 +73,6 @@ class User {
         await db.query('DELETE FROM users WHERE user_id = $1', [this.id]);
     }
 }
+
 
 module.exports = User;
