@@ -83,11 +83,11 @@ async function registerUser(email, username, password) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: {
+    body: JSON.stringify({
       email,
       username,
       password,
-    },
+    }),
   });
   if (res.status === 200) {
     alert("Registered successfully");
