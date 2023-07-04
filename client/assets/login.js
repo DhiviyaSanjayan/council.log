@@ -7,17 +7,17 @@ submitBtn.addEventListener("click", async (e) => {
   if (Array.from(incorrectCredential.classList).indexOf("hidden") === -1) {
     incorrectCredential.classList.add("hidden");
   }
-  await logIn(form.email.value, form.password.value);
+  await logIn(form.username.value, form.password.value);
 });
 
-async function logIn(email, password) {
-  const res = await fetch("http://localhost:3000/users", {
+async function logIn(username, password) {
+  const res = await fetch("http://localhost:3000/user/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email,
+      username,
       password,
     }),
   });
@@ -26,5 +26,6 @@ async function logIn(email, password) {
     window.location.replace("./dashboard");
   } else {
     incorrectCredential.classList.remove("hidden");
+    return;
   }
 }
