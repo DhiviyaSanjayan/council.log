@@ -89,7 +89,7 @@ async function registerUser(email, username, password) {
       password,
       isTeacher: false,
       isStudent: false,
-    },
+    }),
   });
   if (res.status === 200) {
     alert("Registered successfully");
