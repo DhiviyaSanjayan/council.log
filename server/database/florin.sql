@@ -20,11 +20,12 @@ CREATE TABLE users (
 
 CREATE TABLE classes (
     class_id SERIAL PRIMARY KEY,
-    category VARCHAR(255) NOT NULL,
-    class_name VARCHAR(255) NOT NULL,
-    class_time TIMESTAMP NOT NULL,
-    duration INTEGER NOT NULL,
-    description TEXT
+    category VARCHAR(50),
+    class_name VARCHAR(100),
+    class_time TIME,
+    duration INTEGER,
+    description TEXT,
+    teacher_id INTEGER REFERENCES users(user_id)
 );
 
 CREATE TABLE registrations (
