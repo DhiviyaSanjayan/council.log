@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS tokens CASCADE;
 
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
+    email VARCHAR (255) UNIQUE NOT NULL,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     is_student BOOLEAN DEFAULT false,
@@ -48,11 +49,13 @@ CREATE TABLE tokens (
 );
 
 
-INSERT INTO users (username, password, is_student, is_teacher, student_points, teacher_points)
-VALUES ('user1', 'password1', true, false, 100, 0),
-       ('user2', 'password2', true, false, 50, 0),
-       ('user3', 'password3', false, true, 0, 200),
-       ('user4', 'password4', true, true, 50, 150);
+INSERT INTO users (email, username, password, is_student, is_teacher, student_points, teacher_points)
+VALUES 
+    ('user1@example.com', 'user1', 'password1', true, false, 100, 0),
+    ('user2@example.com', 'user2', 'password2', true, false, 50, 0),
+    ('user3@example.com', 'user3', 'password3', false, true, 0, 200),
+    ('user4@example.com', 'user4', 'password4', true, true, 50, 150);
+
 
 INSERT INTO classes (category, class_name, class_time, duration, description)
 VALUES ('Pottery', 'Wheel Throwing', '2023-07-03 10:00:00', 120, 'Learn the skill of wheel throwing and create beautiful pottery.'),

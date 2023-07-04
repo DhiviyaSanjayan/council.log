@@ -2,8 +2,9 @@ const db = require('../database/db');
 require("dotenv").config();
 
 class User {
-    constructor({ user_id, username, password, is_student, is_teacher, student_points, teacher_points }) {
+    constructor({ user_id, email, username, password, is_student, is_teacher, student_points, teacher_points }) {
         this.id = user_id;
+        this.email = email;
         this.username = username;
         this.password = password;
         this.isStudent = is_student;
@@ -35,15 +36,20 @@ class User {
 
     static async create(data) {
         const {
-            username, password, isStudent, isTeacher, studentPoints, teacherPoints,
+            email: userEmail,
+            username: userUsername,
+            password,
+            isStudent,
+            isTeacher
         } = data;
-        const query = 'INSERT INTO users (username, password, is_student, is_teacher, student_points, teacher_points) ' +
-            'VALUES ($1, $2, $3, $4, $5, $6) RETURNING user_id';
-        const values = [username, password, isStudent, isTeacher, studentPoints, teacherPoints];
+        const query = 'INSERT INTO users (email, username, password, is_student, is_teacher) ' +
+            'VALUES ($1, $2, $3, $4, $5) RETURNING user_id';
+        const values = [userEmail, userUsername, password, isStudent, isTeacher];
         const response = await db.query(query, values);
         const newId = response.rows[0].user_id;
         return User.getById(newId);
     }
+
 
     async update() {
         const query = 'UPDATE users SET username = $1, password = $2, is_student = $3, is_teacher = $4, ' +

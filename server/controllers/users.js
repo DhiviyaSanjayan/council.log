@@ -25,9 +25,9 @@ class UserController {
     }
 
     static async createUser(req, res) {
-        const { username, password, isStudent, isTeacher } = req.body;
+        const { email, username, password, isStudent, isTeacher } = req.body;
         try {
-            const newUser = await User.create({ username, password, isStudent, isTeacher });
+            const newUser = await User.create({ email, username, password, isStudent, isTeacher });
             res.status(201).json(newUser);
         } catch (error) {
             res.status(500).json({ error: 'Unable to create user.' });

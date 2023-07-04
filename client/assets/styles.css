@@ -123,3 +123,45 @@ main {
 .warning.hidden {
   display: none;
 }
+
+.dashboard-greeting {
+  margin-bottom: 20px;
+}
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  padding: 40px 0;
+}
+.dashboard-container-card {
+  box-shadow: 0 0 20px rgb(236, 236, 236);
+  border-radius: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-container-card-img-container {
+  overflow: hidden;
+  padding: 20px;
+}
+.dashboard-container-card-img-container img {
+  object-fit: cover;
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 15px;
+}
+.dashboard-container-card p {
+  font-size: 1.5rem;
+  padding: 20px;
+  background-color: var(--background-blue);
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  color: white;
+  flex: 1;
+}
+.dashboard-container-card:hover p {
+  background-color: var(--hover-background-blue);
+}

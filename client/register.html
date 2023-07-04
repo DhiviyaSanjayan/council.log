@@ -26,19 +26,28 @@
     <main>
       <h1 class="body-title">Create an new account</h1>
       <form class="register-form">
-        <label for="email">Email</label>
+        <label for="email">Email*</label>
         <p class="warning hidden" id="invalidEmail">
-          Please enter a valid email
+          Please enter a valid email.
+        </p>
+        <p class="warning hidden" id="usedEmail">
+          This email is registered before.
         </p>
         <input type="email" name="email" id="email" required />
-        <label for="create-password">Create a new password</label>
+
+        <label for="username">Username*</label>
+        <p class="warning hidden" id="usedUsername">
+          This username is used. Pleased try a new one.
+        </p>
+        <input type="text" name="username" id="username" required />
+        <label for="create-password">Create a new password*</label>
         <input
           type="password"
           name="createPassword"
           id="create-password"
           required
         />
-        <label for="verify-password">Verify your password</label>
+        <label for="verify-password">Verify your password*</label>
         <p class="warning hidden" id="differentPassword">
           Please enter the same password as above
         </p>

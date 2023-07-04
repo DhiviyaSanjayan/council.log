@@ -23,7 +23,8 @@ async function logIn(username, password) {
   });
 
   if (res.status === 200) {
-    window.location.replace("./dashboard");
+    const data = await res.json();
+    window.location.replace(`./dashboard.html`);
   } else {
     incorrectCredential.classList.remove("hidden");
     return;
