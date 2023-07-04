@@ -1,1 +1,1 @@
-console.log("dashboard");
+const greeting = document.querySelector(".dashboard-greeting");
