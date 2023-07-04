@@ -7,6 +7,7 @@ const userRoutes = require('./routers/userRoutes');
 const classesRoutes = require('./routers/classesRoutes');
 const registrationRoutes = require('./routers/registrationRoutes');
 const pointsLogRoutes = require('./routers/pointslogRoutes');
+const tokenRoutes = require('./routers/tokenRoutes');
 
 const api = express();
 
@@ -22,9 +23,13 @@ api.use('/registration', registrationRoutes);
 
 api.use('/points', pointsLogRoutes);
 
+
+api.use('/token', tokenRoutes)
+
 api.get('/', (req, res) => {
     res.json({ message: 'Server is running' });
 });
   
+
 
 module.exports = api;

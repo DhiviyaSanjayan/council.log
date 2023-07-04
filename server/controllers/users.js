@@ -52,12 +52,16 @@ class UserController {
     static async createUser(req, res) {
         const { email, username, password, isStudent, isTeacher } = req.body;
         try {
-            const newUser = await User.create({ email, username, password, isStudent, isTeacher });
+            const rounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
+            const salt = await bcrypt.genSalt(rounds);
+            const hashedPassword = await bcrypt.hash(password, salt);
+            const newUser = await User.create({ email, username, password: hashedPassword, isStudent, isTeacher });
             res.status(201).json(newUser);
         } catch (error) {
             res.status(500).json({ error: 'Unable to create user.' });
         }
     }
+
 
     static async updateUser(req, res) {
         const { id } = req.params;
