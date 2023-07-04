@@ -28,6 +28,7 @@ input {
 button {
   cursor: pointer;
   border-radius: 10px;
+  transition: all 0.2s;
 }
 label {
   display: block;
@@ -60,7 +61,38 @@ label {
   color: white;
   padding: 0.5vw 20%;
   font-size: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-banner h3 {
   font-weight: 300;
+}
+.setting-icon {
+  width: 50px;
+  padding: 10px;
+  cursor: pointer;
+}
+.greeting {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+}
+.greeting-username {
+  color: white;
+}
+.greeting-username:hover {
+  text-decoration-thickness: 3px;
+}
+.log-out-button {
+  color: white;
+  background-color: var(--background-blue);
+  padding: 10px;
+  border: none;
+  margin: 0 10px;
+}
+.log-out-button:hover {
+  background-color: var(--hover-background-blue);
 }
 .logo {
   padding-right: 50px;
