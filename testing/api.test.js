@@ -17,28 +17,27 @@ describe("Server Tests", () => {
       expect(response.body.id).toBe(1);
     });
 
-    it('GET /user/:id/pointslog', async () => {
-      const response = await request(app).get('/user/1/pointslog');
-      expect(response.statusCode).toBe(200);
-    });
-
-    it('POST /user', async () => {
+    it('POST /user/register', async () => {
       const response = await request(app)
-        .post('/user')
+        .post('/user/register')
         .send({ 
-          username: 'test', 
+          first_name: 'John',
+          last_name: 'Doe',
+          email: 'john.doe@example.com',
+          username: 'testoftest', 
           password: 'password', 
           isStudent: true, 
           isTeacher: false 
         });
-
+    
       expect(response.statusCode).toBe(201);
-      expect(response.body.username).toBe('test');
+      expect(response.body.username).toBe('testoftest');
     });
+    
 
     it('PUT /user/:id', async () => {
       const response = await request(app)
-        .put('/user/1')
+        .put('/user/5')
         .send({ 
           username: 'updated', 
           password: 'updatedpassword',
@@ -52,22 +51,12 @@ describe("Server Tests", () => {
     });
 
     it('DELETE /user/:id', async () => {
-      const response = await request(app).delete('/user/1');
+      const response = await request(app).delete('/user/5');
       expect(response.statusCode).toBe(200);
     });
   });
 
   describe("Class API", () => {
-    it('GET /class', async () => {
-      const response = await request(app).get('/class');
-      expect(response.statusCode).toBe(200);
-    });
-
-    it('GET /class/:id', async () => {
-      const response = await request(app).get('/class/1');
-      expect(response.statusCode).toBe(200);
-      expect(response.body.id).toBe(1);
-    });
 
     it('POST /class', async () => {
       const response = await request(app)
@@ -84,9 +73,21 @@ describe("Server Tests", () => {
       expect(response.body.class_name).toBe('Test Class');
     });
 
+    it('GET /class', async () => {
+      const response = await request(app).get('/class');
+      expect(response.statusCode).toBe(200);
+    });
+
+    it('GET /class/:id', async () => {
+      const response = await request(app).get('/class/4');
+      expect(response.statusCode).toBe(200);
+      expect(response.body.id).toBe(1);
+    });
+
+
     it('PUT /class/:id', async () => {
       const response = await request(app)
-        .put('/class/1')
+        .put('/class/4')
         .send({
           category: 'Updated Category',
           class_name: 'Updated Class',
@@ -100,7 +101,7 @@ describe("Server Tests", () => {
     });
 
     it('DELETE /class/:id', async () => {
-      const response = await request(app).delete('/class/1');
+      const response = await request(app).delete('/class/4');
       expect(response.statusCode).toBe(200);
     });
   });

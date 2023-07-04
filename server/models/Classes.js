@@ -26,16 +26,16 @@ class Classes {
     }
 
     async create() {
-        const query = 'INSERT INTO classes (category, class_name, class_time, duration, description) VALUES ($1, $2, $3, $4, $5) RETURNING class_id';
-        const values = [this.category, this.className, this.classTime, this.duration, this.description];
+        const query = 'INSERT INTO classes (category, class_name, class_time, duration, description, teacher_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING class_id';
+        const values = [this.category, this.className, this.classTime, this.duration, this.description, this.teacherId];
         const response = await db.query(query, values);
         this.id = response.rows[0].class_id;
         return this;
     }
 
     async update() {
-        const query = 'UPDATE classes SET category = $1, class_name = $2, class_time = $3, duration = $4, description = $5 WHERE class_id = $6';
-        const values = [this.category, this.className, this.classTime, this.duration, this.description, this.id];
+        const query = 'UPDATE classes SET category = $1, class_name = $2, class_time = $3, duration = $4, description = $5, teacher_id = $6 WHERE class_id = $7';
+        const values = [this.category, this.className, this.classTime, this.duration, this.description, this.teacherId, this.id];
         await db.query(query, values);
         return this;
     }
