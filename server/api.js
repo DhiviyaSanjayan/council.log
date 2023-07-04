@@ -23,7 +23,6 @@ api.use('/registration', registrationRoutes);
 
 api.use('/points', pointsLogRoutes);
 
-
 api.use('/token', tokenRoutes);
 
 api.get('/', (req, res) => {
