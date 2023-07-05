@@ -14,5 +14,8 @@ router.delete("/:id", UserController.deleteUser);
 router.post("/register", UserController.register);
 router.post("/login", UserController.login);
 router.post("/logout", UserController.logout);
+router.get("/:id/classes", UserController.getUserClasses);
+router.get("/:id/classes/past", UserController.getUserPastClasses);
+router.get("/:id/classes/future", UserController.getUserFutureClasses);
 
 module.exports = router;
