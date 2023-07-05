@@ -98,8 +98,10 @@ class UserController {
 
     static async deleteUser(req, res) {
         const { id } = req.params;
+        console.log(`THIS IS ID`, id)
         try {
             const user = await User.getById(id);
+            console.log(`THIS IS USER`, user)
             await user.delete();
             res.json({ message: "User deleted successfully." });
         } catch (error) {
@@ -150,6 +152,19 @@ class UserController {
             res.status(500).json({ error: "Unable to logout." });
         }
     }
+
+    static async getUserTeacherId(req, res) {
+        const { username } = req.body;
+        try {
+            const teacherId = await User.getUserTeacherId(username);
+            res.json({ teacherId });
+        } catch (error) {
+            res.status(404).json({ error: error.message });
+        }
+    }
+
+
+
 }
 
 module.exports = UserController;

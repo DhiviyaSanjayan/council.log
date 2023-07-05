@@ -103,7 +103,16 @@ class User {
     
 
     async delete() {
+        console.log(`THIS IS THIS.ID`, this.id)
         await db.query("DELETE FROM users WHERE user_id = $1", [this.id]);
+    }
+
+    static async getUserTeacherId(username) {
+        const response = await db.query("SELECT user_id FROM users WHERE username = $1 AND is_teacher = true", [username]);
+        if (response.rows.length !== 1) {
+            throw new Error("Unable to locate user or user is not a teacher.");
+        }
+        return response.rows[0].user_id;
     }
 }
 

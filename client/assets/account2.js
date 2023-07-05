@@ -60,6 +60,7 @@ async function fetchUser() {
   
       if (response.ok) {
         const user = await response.json();
+        console.log(user)
   
         // Populate the form with user details
         document.getElementById('username').value = user.username;
@@ -132,10 +133,35 @@ async function fetchUser() {
       window.location.href = '/client/login';
     }
   }
+
+  document.getElementById('delete-account-btn').addEventListener('click', (event) => {
+    event.preventDefault();
+    
+    // Display the confirmation text and the "Yes, delete" button
+    document.getElementById('delete-confirm-text').style.display = 'block';
+    document.getElementById('confirm-delete-account-btn').style.display = 'block';
+  });
+  
+  document.getElementById('confirm-delete-account-btn').addEventListener('click', async (event) => {
+    event.preventDefault();
+  
+    const response = await fetch(`http://localhost:3000/user/${user.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+  
+    if (response.ok) {
+      // Successfully deleted account, redirect to the index page
+      localStorage.removeItem('token'); // remove the token since the user has deleted their account
+      window.location.href = '/client/index.html';
+    } else {
+      // Handle any errors
+      const responseData = await response.json();
+      console.error('Failed to delete account:', responseData.error);
+    }
+  });
   
   document.addEventListener('DOMContentLoaded', fetchUser);
-  
-
-
-
-
