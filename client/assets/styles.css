@@ -163,6 +163,9 @@ main {
 .dashboard-greeting {
   margin-bottom: 20px;
 }
+.welcome-back {
+  padding: 0px 10px;
+}
 .dashboard-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
