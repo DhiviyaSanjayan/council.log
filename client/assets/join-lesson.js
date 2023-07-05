@@ -38,7 +38,6 @@ getUser(token).then((user) => {
   }
 });
 getClasses().then(async (data) => {
-  console.log(data);
   const teacherInfo = await getTeacherName();
   data.forEach((el) => {
     const tr = document.createElement("tr");
