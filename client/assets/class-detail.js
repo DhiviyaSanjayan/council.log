@@ -13,7 +13,7 @@ async function getUser(token) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      authorization: localStorage.getItem("token"),
+      authorization: token,
     },
     body: JSON.stringify({
       token,
@@ -54,4 +54,23 @@ getClass().then(async (classInfo) => {
   teacherName.textContent = `taught by ${teacher.firstName} ${teacher.lastName}`;
   duration.textContent = `${classInfo.duration} minutes`;
   description.textContent = classInfo.description;
+});
+
+joinBtn.addEventListener("click", async (e) => {
+  e.preventDefault();
+  const currentClass = await getClass();
+  const currentUser = await getUser(token);
+  const res = await fetch("http://localhost:3000/registration", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId: currentUser.id,
+      classId: currentClass.id,
+      role: "student",
+    }),
+  });
+  const data = await res.json();
+  console.log(data);
 });
