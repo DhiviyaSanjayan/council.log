@@ -4,8 +4,8 @@
   --crystal-pink: #e0b1a9;
   --linear-gradient-blue: linear-gradient(
     0.2turn,
-    #213974,
-    var(--background-blue)
+    var(--background-blue),
+    #f7ff00
   );
 }
 * {
@@ -203,4 +203,11 @@ main {
 }
 .dashboard-container-card:hover p {
   background-color: var(--hover-background-blue);
+}
+table {
+  text-align: center;
+}
+th,
+td {
+  padding: 10px;
 }
