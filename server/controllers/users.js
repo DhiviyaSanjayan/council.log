@@ -122,9 +122,6 @@ class UserController {
                 throw new Error("Wrong username or password");
             } else {
                 const token = await Token.create(user.id);
-                const userId = user.id;
-                // localStorage.setItem("token", token.token);
-                // localStorage.setItem("userId", userId);
                 res.status(200).json({ authenticated: true, user, token: token.token });
             }
         } catch (error) {
