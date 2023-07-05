@@ -47,6 +47,7 @@ getUser(token).then((user) => {
   }
 });
 getClass().then(async (classInfo) => {
+  console.log(classInfo);
   const teacherInfo = await getTeacherName();
   const teacher = teacherInfo.find((user) => user.id === classInfo.teacher_id);
   classTitle.textContent = classInfo.className;
