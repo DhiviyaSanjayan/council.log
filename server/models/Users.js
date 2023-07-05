@@ -83,12 +83,11 @@ class User {
 
     async update() {
         const query =
-            "UPDATE users SET first_name = $1, last_name = $2, email = $3, username = $4, password = $5, " +
-            "is_student = $6, is_teacher = $7, student_points = $8, teacher_points = $9 WHERE user_id = $10";
+            "UPDATE users SET first_name = $1, last_name = $2, username = $3, password = $4, " +
+            "is_student = $5, is_teacher = $6, student_points = $7, teacher_points = $8 WHERE user_id = $9";
         const values = [
             this.firstName,
             this.lastName,
-            this.email,
             this.username,
             this.password,
             this.isStudent,
@@ -100,12 +99,11 @@ class User {
         await db.query(query, values);
         return this;
     }
-    
 
     async delete() {
-        console.log(`THIS IS THIS.ID`, this.id)
         await db.query("DELETE FROM users WHERE user_id = $1", [this.id]);
     }
+
 
     static async getUserTeacherId(username) {
         const response = await db.query("SELECT user_id FROM users WHERE username = $1 AND is_teacher = true", [username]);

@@ -6,9 +6,12 @@ document.getElementById("create-lesson-form").addEventListener("submit", async f
     const classTime = document.getElementById("class-time").value;
     const duration = document.getElementById("duration").value;
     const description = document.getElementById("description").value;
-    const teacherId = "<teacher_id>";
+    let teacherId;
 
     try {
+
+        teacherId = localStorage.getItem("userId");
+
         const classData = {
             category,
             class_name: className,
@@ -18,7 +21,7 @@ document.getElementById("create-lesson-form").addEventListener("submit", async f
             teacher_id: teacherId,
         };
 
-        const response = await fetch("http://localhost:5050/class", {
+        const classResponse = await fetch("http://localhost:5050/class", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -26,12 +29,12 @@ document.getElementById("create-lesson-form").addEventListener("submit", async f
             body: JSON.stringify(classData),
         });
 
-        if (response.ok) {
-            const data = await response.json();
+        if (classResponse.ok) {
+            const data = await classResponse.json();
             console.log(data);
             alert("Class created successfully!");
         } else {
-            const errorResponse = await response.json();
+            const errorResponse = await classResponse.json();
             console.error("Error:", errorResponse);
             alert("An error occurred while creating the class. Please try again.");
         }
