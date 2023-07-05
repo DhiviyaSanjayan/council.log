@@ -219,3 +219,15 @@ td {
   padding: 10px;
 }
 
+#change-password-link {
+  cursor: pointer;
+  font-size: 1.1rem;
+  text-decoration: underline;
+  color: #000;
+}
+
+#change-password-link:hover {
+  color: var(--hover-background-blue);
+  text-decoration: none;
+}
+

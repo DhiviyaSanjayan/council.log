@@ -62,23 +62,26 @@
             required
           />
         </div>
-        <div class="form-group">
-          <label for="password">New Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="New Password"
-          />
-        </div>
-        <div class="form-group">
-          <label for="confirm-password">Confirm Password</label>
-          <input
-            type="password"
-            id="confirm-password"
-            name="confirm-password"
-            placeholder="Confirm Password"
-          />
+        <a href="#" id="change-password-link">Click here to update password too.<br><br></a>
+        <div id="password-change-container" style="display: none;">
+          <div class="form-group">
+            <label for="password">New Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="New Password"
+            />
+          </div>
+          <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirm-password"
+              placeholder="Confirm Password"
+            />
+          </div>
         </div>
         <button id="update-btn" class="body-button" type="submit">
           Update

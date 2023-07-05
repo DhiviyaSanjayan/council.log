@@ -65,6 +65,16 @@ async function fetchUser() {
         document.getElementById('username').value = user.username;
         document.getElementById('email').value = user.email;
   
+        document.getElementById('change-password-link').addEventListener('click', function(event) {
+          event.preventDefault();
+          const passwordChangeContainer = document.getElementById('password-change-container');
+          if (passwordChangeContainer.style.display === 'none' || passwordChangeContainer.style.display === '') {
+            passwordChangeContainer.style.display = 'block';
+          } else {
+            passwordChangeContainer.style.display = 'none';
+          }
+        });
+        
         document.getElementById('account-form').addEventListener('submit', async (event) => {
           event.preventDefault();
         
@@ -76,7 +86,7 @@ async function fetchUser() {
           const currentPassword = document.getElementById('current-password').value;
         
           // Perform validation checks
-          if (password !== confirmPassword) {
+          if ((password !== "" && confirmPassword !== "") && password !== confirmPassword) {
             alert('Password and Confirm Password do not match.');
             return;
           }
@@ -88,7 +98,7 @@ async function fetchUser() {
             currentPassword,
           };
         
-          if (password && password === confirmPassword) {
+          if (password !== "" && confirmPassword !== "" && password === confirmPassword) {
             updatedUser.password = password;
           }
         
