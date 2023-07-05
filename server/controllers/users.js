@@ -72,20 +72,13 @@ class UserController {
 
     static async updateUser(req, res) {
         const { id } = req.params;
-        const { username, email, password, isStudent, isTeacher } = req.body;
+        const { username, password, isStudent, isTeacher } = req.body;
         try {
             const user = await User.getById(id);
             user.username = username;
-            user.email = email;
+            user.password = password;
             user.isStudent = isStudent;
             user.isTeacher = isTeacher;
-
-            if (password) {
-                const rounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
-                const salt = await bcrypt.genSalt(rounds);
-                user.password = await bcrypt.hash(password, salt);
-            }
-
             await user.update();
             res.json(user);
         } catch (error) {
@@ -93,15 +86,10 @@ class UserController {
         }
     }
 
-
-
-
     static async deleteUser(req, res) {
         const { id } = req.params;
-        console.log(`THIS IS ID`, id)
         try {
             const user = await User.getById(id);
-            console.log(`THIS IS USER`, user)
             await user.delete();
             res.json({ message: "User deleted successfully." });
         } catch (error) {
@@ -134,8 +122,10 @@ class UserController {
                 throw new Error("Wrong username or password");
             } else {
                 const token = await Token.create(user.id);
+                const userId = user.id;
+                localStorage.setItem("token", token.token);
+                localStorage.setItem("userId", userId);
                 res.status(200).json({ authenticated: true, user, token: token.token });
-                localStorage.setItem('token', token.token);
             }
         } catch (error) {
             res.status(403).json({ error: error.message });
@@ -153,17 +143,6 @@ class UserController {
             res.status(500).json({ error: "Unable to logout." });
         }
     }
-
-    static async getUserTeacherId(req, res) {
-        const { username } = req.body;
-        try {
-            const teacherId = await User.getUserTeacherId(username);
-            res.json({ teacherId });
-        } catch (error) {
-            res.status(404).json({ error: error.message });
-        }
-    }
-
 
 
 }
