@@ -74,27 +74,27 @@ class UserController {
         const { id } = req.params;
         const { username, email, password, isStudent, isTeacher } = req.body;
         try {
-          const user = await User.getById(id);
-          user.username = username;
-          user.email = email;
-          user.isStudent = isStudent;
-          user.isTeacher = isTeacher;
-          
-          if (password) {
-            const rounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
-            const salt = await bcrypt.genSalt(rounds);
-            user.password = await bcrypt.hash(password, salt);
-          }
-      
-          await user.update();
-          res.json(user);
-        } catch (error) {
-          res.status(404).json({ error: "User not found." });
-        }
-      }
-      
+            const user = await User.getById(id);
+            user.username = username;
+            user.email = email;
+            user.isStudent = isStudent;
+            user.isTeacher = isTeacher;
 
-    
+            if (password) {
+                const rounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
+                const salt = await bcrypt.genSalt(rounds);
+                user.password = await bcrypt.hash(password, salt);
+            }
+
+            await user.update();
+            res.json(user);
+        } catch (error) {
+            res.status(404).json({ error: "User not found." });
+        }
+    }
+
+
+
 
     static async deleteUser(req, res) {
         const { id } = req.params;
@@ -135,6 +135,7 @@ class UserController {
             } else {
                 const token = await Token.create(user.id);
                 res.status(200).json({ authenticated: true, user, token: token.token });
+                localStorage.setItem('token', token.token);
             }
         } catch (error) {
             res.status(403).json({ error: error.message });
