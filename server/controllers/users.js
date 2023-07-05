@@ -152,6 +152,19 @@ class UserController {
             res.status(500).json({ error: "Unable to logout." });
         }
     }
+
+    static async getUserTeacherId(req, res) {
+        const { username } = req.body;
+        try {
+            const teacherId = await User.getUserTeacherId(username);
+            res.json({ teacherId });
+        } catch (error) {
+            res.status(404).json({ error: error.message });
+        }
+    }
+
+
+
 }
 
 module.exports = UserController;
