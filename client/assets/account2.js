@@ -7,7 +7,7 @@ const welcomeBack = document.querySelector(".welcome-back");
 logoutBtn.addEventListener("click", (e) => {
   e.preventDefault();
   localStorage.removeItem("token");
-  window.location.replace("./login");
+  window.location.replace("../index.html");
 });
 async function getUser(token) {
   const res = await fetch("http://localhost:3000/token", {
@@ -65,6 +65,16 @@ async function fetchUser() {
         document.getElementById('username').value = user.username;
         document.getElementById('email').value = user.email;
   
+        document.getElementById('change-password-link').addEventListener('click', function(event) {
+          event.preventDefault();
+          const passwordChangeContainer = document.getElementById('password-change-container');
+          if (passwordChangeContainer.style.display === 'none' || passwordChangeContainer.style.display === '') {
+            passwordChangeContainer.style.display = 'block';
+          } else {
+            passwordChangeContainer.style.display = 'none';
+          }
+        });
+        
         document.getElementById('account-form').addEventListener('submit', async (event) => {
           event.preventDefault();
         
@@ -73,9 +83,10 @@ async function fetchUser() {
           const email = document.getElementById('email').value;
           const password = document.getElementById('password').value;
           const confirmPassword = document.getElementById('confirm-password').value;
+          const currentPassword = document.getElementById('current-password').value;
         
           // Perform validation checks
-          if (password !== confirmPassword) {
+          if ((password !== "" && confirmPassword !== "") && password !== confirmPassword) {
             alert('Password and Confirm Password do not match.');
             return;
           }
@@ -84,8 +95,12 @@ async function fetchUser() {
           const updatedUser = {
             username,
             email,
-            password,
+            currentPassword,
           };
+        
+          if (password !== "" && confirmPassword !== "" && password === confirmPassword) {
+            updatedUser.password = password;
+          }
         
           try {
             const response = await fetch(`http://localhost:3000/user/${user.id}`, {
