@@ -30,7 +30,7 @@
 
     <main>
       <h1 class="body-title">Account</h1>
-<br><br>
+<p class ="account-body">Update your account details.</p>
       <form id="account-form" class="edit-form">
         <div class="form-group">
           <label for="username">Username</label>
@@ -53,13 +53,22 @@
           />
         </div>
         <div class="form-group">
+          <label for="current-password">Current Password (required to make changes)</label>
+          <input
+            type="password"
+            id="current-password"
+            name="current-password"
+            placeholder="*********"
+            required
+          />
+        </div>
+        <div class="form-group">
           <label for="password">New Password</label>
           <input
             type="password"
             id="password"
             name="password"
             placeholder="New Password"
-            required
           />
         </div>
         <div class="form-group">
@@ -69,10 +78,9 @@
             id="confirm-password"
             name="confirm-password"
             placeholder="Confirm Password"
-            required
           />
         </div>
-        <button id="update-btn" class="button edit-btn" type="submit">
+        <button id="update-btn" class="body-button" type="submit">
           Update
         </button>
       </form>

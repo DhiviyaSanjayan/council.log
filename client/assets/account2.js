@@ -7,7 +7,7 @@ const welcomeBack = document.querySelector(".welcome-back");
 logoutBtn.addEventListener("click", (e) => {
   e.preventDefault();
   localStorage.removeItem("token");
-  window.location.replace("./login");
+  window.location.replace("../index.html");
 });
 async function getUser(token) {
   const res = await fetch("http://localhost:3000/token", {
@@ -73,6 +73,7 @@ async function fetchUser() {
           const email = document.getElementById('email').value;
           const password = document.getElementById('password').value;
           const confirmPassword = document.getElementById('confirm-password').value;
+          const currentPassword = document.getElementById('current-password').value;
         
           // Perform validation checks
           if (password !== confirmPassword) {
@@ -84,8 +85,12 @@ async function fetchUser() {
           const updatedUser = {
             username,
             email,
-            password,
+            currentPassword,
           };
+        
+          if (password && password === confirmPassword) {
+            updatedUser.password = password;
+          }
         
           try {
             const response = await fetch(`http://localhost:3000/user/${user.id}`, {
