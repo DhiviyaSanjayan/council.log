@@ -37,6 +37,11 @@ class Token {
             return new Token(response.rows[0]);
         }
     }
+
+    static async deleteByToken(token) {
+        const query = "DELETE FROM tokens WHERE token = $1";
+        await db.query(query, [token]);
+    }
 }
 
 module.exports = Token;
