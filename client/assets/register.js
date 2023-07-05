@@ -103,7 +103,8 @@ async function registerUser(email, username, password, firstName, lastName) {
   });
   if (res.status === 201) {
     const result = await res.json();
-    console.log(result);
+
     alert("Registered successfully");
+    window.location.replace("../login");
   }
 }
