@@ -144,6 +144,8 @@ async function fetchUser() {
   
   document.getElementById('confirm-delete-account-btn').addEventListener('click', async (event) => {
     event.preventDefault();
+
+    const user = await getUser(token);
   
     const response = await fetch(`http://localhost:3000/user/${user.id}`, {
       method: 'DELETE',
