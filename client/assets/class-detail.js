@@ -8,6 +8,7 @@ const teacherName = document.querySelector(".teacher-title");
 const dateTime = document.querySelector(".date-time");
 const duration = document.querySelector(".duration");
 const description = document.querySelector(".description");
+const address = document.querySelector(".address");
 const joinBtn = document.querySelector(".join-button");
 async function getUser(token) {
   const res = await fetch("http://localhost:3000/token", {
@@ -59,6 +60,7 @@ getClass().then(async (classInfo) => {
   )}, ${classInfo.classTime.slice(11, 16)}`;
   duration.textContent = `${classInfo.duration} minutes`;
   description.textContent = classInfo.description;
+  address.textContent = classInfo.address;
 });
 
 joinBtn.addEventListener("click", async (e) => {
