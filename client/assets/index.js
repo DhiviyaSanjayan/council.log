@@ -28,6 +28,8 @@ getUser(token).then((user) => {
     greeting.textContent = user.firstName;
     logoutBtn.textContent = "Log Out";
     welcomeBack.textContent = `Welcome back, `;
+  } else {
+    window.location.replace("./login");
   }
 });
 
