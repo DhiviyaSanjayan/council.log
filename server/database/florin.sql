@@ -60,10 +60,10 @@ VALUES
     ('Emily', 'Davis', 'user4@example.com', 'user4', 'password4', true, true, 50, 150);
 
 
-INSERT INTO classes (category, class_name, class_time, duration, description)
-VALUES ('Pottery', 'Wheel Throwing', '2023-07-03 10:00:00', 120, 'Learn the skill of wheel throwing and create beautiful pottery.'),
-       ('Pottery', 'Ceramic Painting', '2023-07-04 14:30:00', 90, 'Explore the world of ceramic painting and unleash your creativity'),
-       ('Gardening', 'Urban Gardening', '2023-07-05 11:00:00', 60, 'Discover the techniques of urban gardening and create your own mini garden');
+INSERT INTO classes (category, class_name, class_time, duration, description, teacher_id)
+VALUES ('Pottery', 'Wheel Throwing', '2023-07-03 10:00:00', 120, 'Learn the skill of wheel throwing and create beautiful pottery.', 1),
+       ('Pottery', 'Ceramic Painting', '2023-07-04 14:30:00', 90, 'Explore the world of ceramic painting and unleash your creativity' , 1),
+       ('Gardening', 'Urban Gardening', '2023-07-05 11:00:00', 60, 'Discover the techniques of urban gardening and create your own mini garden', 2);
 
 INSERT INTO registrations (user_id, class_id, role)
 VALUES (1, 1, 'student'),
