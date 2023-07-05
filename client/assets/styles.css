@@ -53,6 +53,19 @@ label {
 .body-button:hover {
   background-color: var(--hover-background-blue);
 }
+
+.delete-button {
+  background-color: #c82a2a;
+  padding: 1rem;
+  font-weight: normal;
+  color: white;
+  font-size: 1.2rem;
+  border: 0;
+  font-weight: 500;
+}
+.delete-button:hover {
+  background-color: #7b2424;
+}
 .crystal-colour-word {
   color: var(--crystal-pink);
   font-weight: 700;
