@@ -103,6 +103,48 @@ class User {
     async delete() {
         await db.query("DELETE FROM users WHERE user_id = $1", [this.id]);
     }
+
+
+    static async getUserTeacherId(username) {
+        const response = await db.query("SELECT user_id FROM users WHERE username = $1 AND is_teacher = true", [username]);
+        if (response.rows.length !== 1) {
+            throw new Error("Unable to locate user or user is not a teacher.");
+        }
+        return response.rows[0].user_id;
+    }
+
+    static async getClasses(userId) {
+        const response = await db.query(
+          `SELECT * FROM classes 
+           INNER JOIN registrations 
+           ON classes.class_id = registrations.class_id 
+           WHERE registrations.user_id = $1`,
+          [userId]
+        );
+        return response.rows;
+      }
+    
+      static async getPastClasses(userId) {
+        const response = await db.query(
+          `SELECT * FROM classes 
+           INNER JOIN registrations 
+           ON classes.class_id = registrations.class_id 
+           WHERE registrations.user_id = $1 AND classes.class_time < CURRENT_TIMESTAMP`,
+          [userId]
+        );
+        return response.rows;
+      }
+    
+      static async getFutureClasses(userId) {
+        const response = await db.query(
+          `SELECT * FROM classes 
+           INNER JOIN registrations 
+           ON classes.class_id = registrations.class_id 
+           WHERE registrations.user_id = $1 AND classes.class_time > CURRENT_TIMESTAMP`,
+          [userId]
+        );
+        return response.rows;
+      }
 }
 
 module.exports = User;

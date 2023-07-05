@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <script src="./assets/index.js" defer></script>
+    <link rel="shortcut icon" href="./assets/icon.svg" type="image/x-icon" />
     <link rel="stylesheet" href="./assets/styles.css" />
   </head>
   <body>
@@ -28,8 +29,14 @@
       </div>
     </div>
 
-    <main>
-      <h1 class="body-title">Dashboard</h1>
+    <main
+      style="
+        padding: 4vw 8vw;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+      "
+    >
       <div class="dashboard-container">
         <div class="dashboard-container-card" id="hostLesson">
           <div class="dashboard-container-card-img-container">
@@ -43,6 +50,19 @@
           </div>
           <p>Join a lesson</p>
         </div>
+      </div>
+      <div class="vision-section">
+        <h1>Share your skill. Share your love.</h1>
+        <p>
+          Our vision is to create a dynamic online platform that facilitates
+          voluntary knowledge sharing through community-hosted classes. Florin
+          Skills connects individuals eager to teach with those who are eager to
+          learn, fostering a vibrant environment for knowledge exchange within
+          our community. Reserve your spot in the classes available or even host
+          your own! Join us in building a community where we freely share our
+          expertise with each other, creating a lasting impact through the power
+          of knowledge exchange.
+        </p>
       </div>
     </main>
   </body>

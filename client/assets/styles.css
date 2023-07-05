@@ -2,9 +2,11 @@
   --background-blue: #4c73d7;
   --hover-background-blue: #2f4a8c;
   --crystal-pink: #e0b1a9;
-  --linear-gradient-blue: linear-gradient(0.2turn,
-      var(--background-blue),
-      #f7ff00);
+  --linear-gradient-blue: linear-gradient(
+    0.2turn,
+    var(--background-blue),
+    #f7ff00
+  );
 }
 
 * {
@@ -221,7 +223,7 @@ main {
 
 .dashboard-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 2rem;
   padding: 40px 0;
 }
@@ -262,8 +264,17 @@ main {
   background-color: var(--hover-background-blue);
 }
 
+.vision-section h1 {
+  padding: 4vw 0;
+}
+.vision-section p {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  text-align: justify;
+}
+
 .account-body {
-  font-size: 1.7rem;
+  font-size: 1.9rem;
   margin-top: 20px;
   margin-bottom: 40px;
 }
@@ -314,3 +325,12 @@ td {
   text-decoration: none;
 }
 
+table a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+table a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}

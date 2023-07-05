@@ -144,6 +144,48 @@ class UserController {
         }
     }
 
+    static async getUserTeacherId(req, res) {
+        const { username } = req.body;
+        try {
+            const teacherId = await User.getUserTeacherId(username);
+            res.json({ teacherId });
+        } catch (error) {
+            res.status(404).json({ error: error.message });
+        }
+    }
+
+    static async getUserClasses(req, res) {
+        const { id } = req.params;
+        try {
+          const userClasses = await User.getClasses(id);
+          res.json(userClasses);
+        } catch (error) {
+          res.status(404).json({ error: "Unable to fetch classes." });
+        }
+      }
+    
+      static async getUserPastClasses(req, res) {
+        const { id } = req.params;
+        try {
+            const classes = await User.getPastClasses(id);
+            console.log(classes);  // add this line
+            res.json(classes);
+        } catch (error) {
+            res.status(404).json({ error: "User not found." });
+        }
+    }
+    
+    static async getUserFutureClasses(req, res) {
+        const { id } = req.params;
+        try {
+            const classes = await User.getFutureClasses(id);
+            console.log(classes);  // add this line
+            res.json(classes);
+        } catch (error) {
+            res.status(404).json({ error: "User not found." });
+        }
+    }
+    
 
 }
 

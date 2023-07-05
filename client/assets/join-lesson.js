@@ -38,12 +38,11 @@ getUser(token).then((user) => {
   }
 });
 getClasses().then(async (data) => {
-  console.log(data);
   const teacherInfo = await getTeacherName();
   data.forEach((el) => {
     const tr = document.createElement("tr");
     const classCell = document.createElement("td");
-    classCell.className = "join-button";
+
     classCell.innerHTML = `<a href="../class-detail/?id=${el.id}">${el.className}</a>`;
     const categoryCell = document.createElement("td");
     categoryCell.textContent = el.category;
@@ -51,13 +50,11 @@ getClasses().then(async (data) => {
     const teacherName = teacherInfo.find((user) => user.id === el.teacher_id);
     console.log(teacherName);
     teacherCell.textContent = `${teacherName.firstName} ${teacherName.lastName}`;
-    const joinBtn = document.createElement("button");
-    joinBtn.classList = "join-button";
-    joinBtn.textContent = "Join";
+
     tr.append(classCell);
     tr.append(categoryCell);
     tr.append(teacherCell);
-    // tr.append(joinBtn);
+
     table.append(tr);
   });
 });
