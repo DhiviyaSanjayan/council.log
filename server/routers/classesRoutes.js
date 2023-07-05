@@ -4,6 +4,7 @@ const authenticator = require('../middleware/authenticator');
 
 const router = express.Router();
 
+router.use(authenticator); //adds authenticator middleware to all theses routes...
 
 router.get('/', ClassesController.getAllClasses);
 router.get('/:id', ClassesController.getClassById);
