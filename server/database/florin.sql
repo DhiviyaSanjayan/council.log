@@ -22,10 +22,11 @@ CREATE TABLE classes (
     class_id SERIAL PRIMARY KEY,
     category VARCHAR(50),
     class_name VARCHAR(100),
-    class_time TIME,
+    class_time TIMESTAMP,
     duration INTEGER,
     description TEXT,
-    teacher_id INTEGER REFERENCES users(user_id)
+    teacher_id INTEGER REFERENCES users(user_id),
+    is_group BOOLEAN DEFAULT true
 );
 
 CREATE TABLE registrations (
@@ -60,10 +61,11 @@ VALUES
     ('Emily', 'Davis', 'user4@example.com', 'user4', 'password4', true, true, 50, 150);
 
 
-INSERT INTO classes (category, class_name, class_time, duration, description, teacher_id)
-VALUES ('Pottery', 'Wheel Throwing', '2023-07-03 10:00:00', 120, 'Learn the skill of wheel throwing and create beautiful pottery.', 1),
-       ('Pottery', 'Ceramic Painting', '2023-07-04 14:30:00', 90, 'Explore the world of ceramic painting and unleash your creativity' , 1),
-       ('Gardening', 'Urban Gardening', '2023-07-05 11:00:00', 60, 'Discover the techniques of urban gardening and create your own mini garden', 2);
+INSERT INTO classes (category, class_name, class_time, duration, description, teacher_id, is_group)
+VALUES ('Pottery', 'Wheel Throwing', '2023-07-03 10:00:00', 120, 'Learn the skill of wheel throwing and create beautiful pottery.', 1, false),
+       ('Pottery', 'Ceramic Painting', '2023-07-04 14:30:00', 90, 'Explore the world of ceramic painting and unleash your creativity', 1, true),
+       ('Gardening', 'Urban Gardening', '2023-07-05 11:00:00', 60, 'Discover the techniques of urban gardening and create your own mini garden', 2, true);
+
 
 INSERT INTO registrations (user_id, class_id, role)
 VALUES (1, 1, 'student'),
