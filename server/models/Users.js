@@ -103,6 +103,7 @@ class User {
     
 
     async delete() {
+        console.log(`THIS IS THIS.ID`, this.id)
         await db.query("DELETE FROM users WHERE user_id = $1", [this.id]);
     }
 }

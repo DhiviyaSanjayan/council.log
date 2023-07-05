@@ -98,8 +98,10 @@ class UserController {
 
     static async deleteUser(req, res) {
         const { id } = req.params;
+        console.log(`THIS IS ID`, id)
         try {
             const user = await User.getById(id);
+            console.log(`THIS IS USER`, user)
             await user.delete();
             res.json({ message: "User deleted successfully." });
         } catch (error) {
