@@ -3,7 +3,11 @@ const token = localStorage.getItem("token");
 const logoutBtn = document.querySelector(".log-out-button");
 const hostLesson = document.querySelector("#hostLesson");
 const welcomeBack = document.querySelector(".welcome-back");
-const table = document.querySelector("table");
+const classTitle = document.querySelector(".body-title");
+const teacherName = document.querySelector(".teacher-title");
+const duration = document.querySelector(".duration");
+const description = document.querySelector(".description");
+const joinBtn = document.querySelector(".join-button");
 async function getUser(token) {
   const res = await fetch("http://localhost:3000/token", {
     method: "POST",
@@ -18,8 +22,12 @@ async function getUser(token) {
   const result = await res.json();
   return result;
 }
-async function getClasses() {
-  const res = await fetch("http://localhost:3000/class");
+async function getClass() {
+  const res = await fetch(
+    `http://localhost:3000/class/${new URLSearchParams(
+      window.location.search
+    ).get("id")}`
+  );
   return await res.json();
 }
 async function getTeacherName() {
@@ -32,32 +40,17 @@ getUser(token).then((user) => {
     console.log("run");
     window.location.replace("../login");
   } else {
+    console.log(greeting);
     greeting.textContent = user.firstName;
     logoutBtn.textContent = "Log Out";
     welcomeBack.textContent = `Welcome back, `;
   }
 });
-getClasses().then(async (data) => {
-  console.log(data);
+getClass().then(async (classInfo) => {
   const teacherInfo = await getTeacherName();
-  data.forEach((el) => {
-    const tr = document.createElement("tr");
-    const classCell = document.createElement("td");
-    classCell.className = "join-button";
-    classCell.innerHTML = `<a href="../class-detail/?id=${el.id}">${el.className}</a>`;
-    const categoryCell = document.createElement("td");
-    categoryCell.textContent = el.category;
-    const teacherCell = document.createElement("td");
-    const teacherName = teacherInfo.find((user) => user.id === el.teacher_id);
-    console.log(teacherName);
-    teacherCell.textContent = `${teacherName.firstName} ${teacherName.lastName}`;
-    const joinBtn = document.createElement("button");
-    joinBtn.classList = "join-button";
-    joinBtn.textContent = "Join";
-    tr.append(classCell);
-    tr.append(categoryCell);
-    tr.append(teacherCell);
-    // tr.append(joinBtn);
-    table.append(tr);
-  });
+  const teacher = teacherInfo.find((user) => user.id === classInfo.teacher_id);
+  classTitle.textContent = classInfo.className;
+  teacherName.textContent = `taught by ${teacher.firstName} ${teacher.lastName}`;
+  duration.textContent = `${classInfo.duration} minutes`;
+  description.textContent = classInfo.description;
 });
