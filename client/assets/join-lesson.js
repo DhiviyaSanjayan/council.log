@@ -43,9 +43,10 @@ getClasses().then((data) => {
     const categoryCell = document.createElement("td");
     categoryCell.textContent = el.category;
     const teacherCell = document.createElement("td");
-    teacherCell.textContent = el.className;
+    teacherCell.textContent = el.teacher_id;
     tr.append(classCell);
     tr.append(categoryCell);
+    tr.append(teacherCell);
     table.append(tr);
   });
 });

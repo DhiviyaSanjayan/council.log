@@ -206,6 +206,7 @@ main {
 }
 table {
   text-align: center;
+  width: 100%;
 }
 th,
 td {
