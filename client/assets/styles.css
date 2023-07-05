@@ -221,7 +221,7 @@ main {
 
 .dashboard-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 2rem;
   padding: 40px 0;
 }
@@ -260,6 +260,15 @@ main {
 
 .dashboard-container-card:hover p {
   background-color: var(--hover-background-blue);
+}
+
+.vision-section h1 {
+  padding: 4vw 0;
+}
+.vision-section p {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  text-align: justify;
 }
 
 .account-body {

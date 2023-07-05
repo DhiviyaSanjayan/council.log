@@ -34,20 +34,20 @@ async function getTeacherName() {
   const res = await fetch("http://localhost:3000/user");
   return await res.json();
 }
+async function checkRegisteredBefore() {
+  const res = await fetch("http://localhost:3000/registration");
+  return await res.json();
+}
 getUser(token).then((user) => {
-  console.log(user);
   if (user.error) {
-    console.log("run");
     window.location.replace("../login");
   } else {
-    console.log(greeting);
     greeting.textContent = user.firstName;
     logoutBtn.textContent = "Log Out";
     welcomeBack.textContent = `Welcome back, `;
   }
 });
 getClass().then(async (classInfo) => {
-  console.log(classInfo);
   const teacherInfo = await getTeacherName();
   const teacher = teacherInfo.find((user) => user.id === classInfo.teacher_id);
   classTitle.textContent = classInfo.className;
@@ -58,8 +58,19 @@ getClass().then(async (classInfo) => {
 
 joinBtn.addEventListener("click", async (e) => {
   e.preventDefault();
+  const registerRecord = await checkRegisteredBefore();
   const currentClass = await getClass();
   const currentUser = await getUser(token);
+  const filteredRecord = registerRecord.filter(
+    (el) => el.userId === currentUser.id && el.classId === currentClass.id
+  );
+  if (filteredRecord.length > 0) {
+    if (filteredRecord[0].role === "student") {
+      return alert("You have already register to the course.");
+    } else if (filteredRecord[0].role === "teacher") {
+      return alert("You are the teacher of this class!");
+    }
+  }
   const res = await fetch("http://localhost:3000/registration", {
     method: "POST",
     headers: {
@@ -75,4 +86,5 @@ joinBtn.addEventListener("click", async (e) => {
   if (res.status === 201) {
     alert("You have successfully registered to the class!");
   }
+  console.log(data);
 });
