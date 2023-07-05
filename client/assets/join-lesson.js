@@ -22,7 +22,10 @@ async function getClasses() {
   const res = await fetch("http://localhost:3000/class");
   return await res.json();
 }
-
+async function getTeacherName() {
+  const res = await fetch("http://localhost:3000/user");
+  return await res.json();
+}
 getUser(token).then((user) => {
   console.log(user);
   if (user.error) {
@@ -34,19 +37,27 @@ getUser(token).then((user) => {
     welcomeBack.textContent = `Welcome back, `;
   }
 });
-getClasses().then((data) => {
+getClasses().then(async (data) => {
   console.log(data);
+  const teacherInfo = await getTeacherName();
   data.forEach((el) => {
     const tr = document.createElement("tr");
     const classCell = document.createElement("td");
-    classCell.innerHTML = `<a href="./${el.id}">${el.className}</a>`;
+    classCell.className = "join-button";
+    classCell.innerHTML = `<a href="../class-detail/?id=${el.id}">${el.className}</a>`;
     const categoryCell = document.createElement("td");
     categoryCell.textContent = el.category;
     const teacherCell = document.createElement("td");
-    teacherCell.textContent = el.teacher_id;
+    const teacherName = teacherInfo.find((user) => user.id === el.teacher_id);
+    console.log(teacherName);
+    teacherCell.textContent = `${teacherName.firstName} ${teacherName.lastName}`;
+    const joinBtn = document.createElement("button");
+    joinBtn.classList = "join-button";
+    joinBtn.textContent = "Join";
     tr.append(classCell);
     tr.append(categoryCell);
     tr.append(teacherCell);
+    // tr.append(joinBtn);
     table.append(tr);
   });
 });

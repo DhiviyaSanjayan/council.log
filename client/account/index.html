@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <script src="../assets/account2.js" defer></script>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <div class="header-banner">
+      <h3><span class="crystal-colour-word">Florin</span> Council</h3>
+      <div class="greeting">
+        <span class="welcome-back"></span>
+        <a href="./account" class="greeting-username"></a>
+
+        <button class="log-out-button">Log In</button>
+      </div>
+    </div>
+    <div class="welcome-banner">
+      <a href="./index.html" data-text="Home" class="banner-button"
+        ><img src="../assets/icon.svg" alt="homeicon" class="logo"
+      /></a>
+      <div class="welcome-title-section">
+        <p>Welcome to</p>
+        <a href="./index.html" class="platform-name"><h1>Florin Skills</h1></a>
+        <h3>A platform to make the community more skilful</h3>
+      </div>
+    </div>
+
+    <main>
+      <h1 class="body-title">Account</h1>
+<p class ="account-body">Update your account details.</p>
+      <form id="account-form" class="edit-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Username"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="current-password">Current Password (required to make changes)</label>
+          <input
+            type="password"
+            id="current-password"
+            name="current-password"
+            placeholder="*********"
+            required
+          />
+        </div>
+        <a href="#" id="change-password-link">Click here to update password too.<br><br></a>
+        <div id="password-change-container" style="display: none;">
+          <div class="form-group">
+            <label for="password">New Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="New Password"
+            />
+          </div>
+          <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirm-password"
+              placeholder="Confirm Password"
+            />
+          </div>
+        </div>
+        <button id="update-btn" class="body-button" type="submit">
+          Update
+        </button><br><br>
+        <button id="delete-account-btn" class="delete-button">Delete</button>
+        <p id="delete-confirm-text" style="display: none;">Are you sure?</p>
+        <button id="confirm-delete-account-btn" style="display: none;">Yes, delete</button>        
+      </form>
+    </main>
+    </main>
+  </body>
+</html>

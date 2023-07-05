@@ -72,24 +72,36 @@ class UserController {
 
     static async updateUser(req, res) {
         const { id } = req.params;
-        const { username, password, isStudent, isTeacher } = req.body;
+        const { username, email, password, isStudent, isTeacher } = req.body;
         try {
-            const user = await User.getById(id);
-            user.username = username;
-            user.password = password;
-            user.isStudent = isStudent;
-            user.isTeacher = isTeacher;
-            await user.update();
-            res.json(user);
+          const user = await User.getById(id);
+          user.username = username;
+          user.email = email;
+          user.isStudent = isStudent;
+          user.isTeacher = isTeacher;
+          
+          if (password) {
+            const rounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
+            const salt = await bcrypt.genSalt(rounds);
+            user.password = await bcrypt.hash(password, salt);
+          }
+      
+          await user.update();
+          res.json(user);
         } catch (error) {
-            res.status(404).json({ error: "User not found." });
+          res.status(404).json({ error: "User not found." });
         }
-    }
+      }
+      
+
+    
 
     static async deleteUser(req, res) {
         const { id } = req.params;
+        console.log(`THIS IS ID`, id)
         try {
             const user = await User.getById(id);
+            console.log(`THIS IS USER`, user)
             await user.delete();
             res.json({ message: "User deleted successfully." });
         } catch (error) {
