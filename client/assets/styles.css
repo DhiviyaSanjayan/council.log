@@ -2,9 +2,11 @@
   --background-blue: #4c73d7;
   --hover-background-blue: #2f4a8c;
   --crystal-pink: #e0b1a9;
-  --linear-gradient-blue: linear-gradient(0.2turn,
-      var(--background-blue),
-      #f7ff00);
+  --linear-gradient-blue: linear-gradient(
+    0.2turn,
+    var(--background-blue),
+    #f7ff00
+  );
 }
 
 * {
@@ -324,7 +326,7 @@ td {
 }
 
 table a {
-  color: #007BFF; 
+  color: #007bff;
   text-decoration: none;
 }
 
@@ -332,4 +334,3 @@ table a:hover {
   color: #0056b3;
   text-decoration: underline;
 }
-
