@@ -123,8 +123,8 @@ class UserController {
             } else {
                 const token = await Token.create(user.id);
                 const userId = user.id;
-                localStorage.setItem("token", token.token);
-                localStorage.setItem("userId", userId);
+                // localStorage.setItem("token", token.token);
+                // localStorage.setItem("userId", userId);
                 res.status(200).json({ authenticated: true, user, token: token.token });
             }
         } catch (error) {
@@ -157,14 +157,14 @@ class UserController {
     static async getUserClasses(req, res) {
         const { id } = req.params;
         try {
-          const userClasses = await User.getClasses(id);
-          res.json(userClasses);
+            const userClasses = await User.getClasses(id);
+            res.json(userClasses);
         } catch (error) {
-          res.status(404).json({ error: "Unable to fetch classes." });
+            res.status(404).json({ error: "Unable to fetch classes." });
         }
-      }
-    
-      static async getUserPastClasses(req, res) {
+    }
+
+    static async getUserPastClasses(req, res) {
         const { id } = req.params;
         try {
             const classes = await User.getPastClasses(id);
@@ -174,7 +174,7 @@ class UserController {
             res.status(404).json({ error: "User not found." });
         }
     }
-    
+
     static async getUserFutureClasses(req, res) {
         const { id } = req.params;
         try {
@@ -185,7 +185,7 @@ class UserController {
             res.status(404).json({ error: "User not found." });
         }
     }
-    
+
 
 }
 
