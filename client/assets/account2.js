@@ -32,6 +32,11 @@ getUser(token).then((user) => {
 });
 
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
 // Function to create table row with class data
 function createClassRow(classData) {
   const row = document.createElement('tr');
@@ -40,7 +45,7 @@ function createClassRow(classData) {
       <td>${classData.category}</td>
       <td>${new Date(classData.class_time).toLocaleString()}</td>
       <td>${classData.duration}</td>
-      <td>${classData.role}</td>
+      <td>${capitalizeFirstLetter(classData.role)}</td>
   `;
   return row;
 }
