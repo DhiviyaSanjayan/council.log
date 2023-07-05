@@ -72,5 +72,7 @@ joinBtn.addEventListener("click", async (e) => {
     }),
   });
   const data = await res.json();
-  console.log(data);
+  if (res.status === 201) {
+    alert("You have successfully registered to the class!");
+  }
 });
