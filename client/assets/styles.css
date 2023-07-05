@@ -242,6 +242,12 @@ th {
 td {
   font-size: 1.2rem;
 }
+.teacher-title,
+.duration,
+.description,
+.join-button {
+  margin: 30px 0;
+}
 .join-button {
   padding: 15px;
   border: none;

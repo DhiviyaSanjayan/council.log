@@ -13,7 +13,7 @@ async function getUser(token) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      authorization: localStorage.getItem("token"),
+      authorization: token,
     },
     body: JSON.stringify({
       token,
@@ -47,10 +47,32 @@ getUser(token).then((user) => {
   }
 });
 getClass().then(async (classInfo) => {
+  console.log(classInfo);
   const teacherInfo = await getTeacherName();
   const teacher = teacherInfo.find((user) => user.id === classInfo.teacher_id);
   classTitle.textContent = classInfo.className;
   teacherName.textContent = `taught by ${teacher.firstName} ${teacher.lastName}`;
   duration.textContent = `${classInfo.duration} minutes`;
   description.textContent = classInfo.description;
+});
+
+joinBtn.addEventListener("click", async (e) => {
+  e.preventDefault();
+  const currentClass = await getClass();
+  const currentUser = await getUser(token);
+  const res = await fetch("http://localhost:3000/registration", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId: currentUser.id,
+      classId: currentClass.id,
+      role: "student",
+    }),
+  });
+  const data = await res.json();
+  if (res.status === 201) {
+    alert("You have successfully registered to the class!");
+  }
 });
