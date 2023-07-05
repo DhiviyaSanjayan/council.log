@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <script src="../assets/account2.js" defer></script>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <div class="header-banner">
+      <h3><span class="crystal-colour-word">Florin</span> Council</h3>
+      <div class="greeting">
+        <span class="welcome-back"></span>
+        <a href="./account" class="greeting-username"></a>
+
+        <button class="log-out-button">Log In</button>
+      </div>
+    </div>
+    <div class="welcome-banner">
+      <a href="./index.html" data-text="Home" class="banner-button"
+        ><img src="../assets/icon.svg" alt="homeicon" class="logo"
+      /></a>
+      <div class="welcome-title-section">
+        <p>Welcome to</p>
+        <a href="./index.html" class="platform-name"><h1>Florin Skills</h1></a>
+        <h3>A platform to make the community more skilful</h3>
+      </div>
+    </div>
+
+    <main>
+      <h1 class="body-title">Account</h1>
+<br><br>
+      <form id="account-form" class="edit-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Username"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">New Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="New Password"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm-password"
+            placeholder="Confirm Password"
+            required
+          />
+        </div>
+        <button id="update-btn" class="button edit-btn" type="submit">
+          Update
+        </button>
+      </form>
+    </main>
+    </main>
+  </body>
+</html>

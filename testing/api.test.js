@@ -41,6 +41,7 @@ describe("Server Tests", () => {
         .send({ 
           username: 'updated', 
           password: 'updatedpassword',
+          email: 'updatedemail',
           isStudent: true, 
           isTeacher: false 
         });
