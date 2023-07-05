@@ -66,11 +66,11 @@ describe("Server Tests", () => {
         .send({ 
           category: 'Test Category', 
           class_name: 'Test Class', 
-          class_time: '2023-07-05T09:00:00Z', // Please adjust to a suitable date-time
-          description: 'This is a description of the test class.',
+          class_time: '2023-07-05T09:00:00Z',
+          address: 'Test address',
           duration: 60,
-          teacher_id: 1,
-          is_group: true
+          description: 'This is a description of the test class.',
+          teacher_id: 1
         });
     
       expect(response.statusCode).toBe(201);
