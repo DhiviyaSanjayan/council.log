@@ -48,7 +48,7 @@ class Classes {
       this.address,
       this.duration,
       this.description,
-      this.teacherId,
+      this.teacher_id,
     ];
     const response = await db.query(query, values);
     this.id = response.rows[0].class_id;
