@@ -66,15 +66,18 @@ describe("Server Tests", () => {
         .send({ 
           category: 'Test Category', 
           class_name: 'Test Class', 
-          class_time: '09:00:00',
-          duration: 60, 
+          class_time: '2023-07-05T09:00:00Z', // Please adjust to a suitable date-time
           description: 'This is a description of the test class.',
-          teacher_id: 1 // Assume that teacher with id 1 is available
+          duration: 60,
+          teacher_id: 1,
+          is_group: true
         });
-  
+    
       expect(response.statusCode).toBe(201);
+      console.log(response.body)
       expect(response.body.className).toBe('Test Class');
     });
+    
   
     // Test to get all classes
     it('GET /class', async () => {
@@ -96,10 +99,10 @@ describe("Server Tests", () => {
         .send({
           category: 'Updated Category',
           class_name: 'Updated Class',
-          class_time: '10:00:00',
-          duration: 120,
           description: 'This is an updated description of the class.',
-          teacher_id: 2 // Assume that teacher with id 2 is available
+          duration: 120,
+          teacher_id: 2,
+          is_group: 'true'
         });
   
       expect(response.statusCode).toBe(200);

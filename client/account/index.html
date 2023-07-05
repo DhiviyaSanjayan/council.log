@@ -30,8 +30,43 @@
     </div>
 
     <main>
-      <h1 class="body-title">Account</h1>
-<p class ="account-body">Update your account details.</p>
+      <h1 class="body-title">Account</h1><br><br>
+
+      <h2>Future Classes</h2>
+      <table id="future-classes-table">
+        <!-- Table headers -->
+        <thead>
+          <tr>
+            <th>Class Name</th>
+            <th>Category</th>
+            <th>Date & Time</th>
+            <th>Duration</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <!-- Table body to populate with future classes data -->
+        <tbody id="future-classes-body"></tbody>
+      </table>
+      <br>
+      <h2>Past Classes</h2>
+      <table id="past-classes-table">
+        <!-- Table headers -->
+        <thead>
+          <tr>
+            <th>Class Name</th>
+            <th>Category</th>
+            <th>Date & Time</th>
+            <th>Duration</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <!-- Table body to populate with past classes data -->
+        <tbody id="past-classes-body"></tbody>
+      </table>
+
+<br><br><br>
+
+<h2 class ="account-body">Update your details.</h2>
       <form id="account-form" class="edit-form">
         <div class="form-group">
           <label for="username">Username</label>
@@ -86,10 +121,10 @@
         </div>
         <button id="update-btn" class="body-button" type="submit">
           Update
-        </button><br><br>
-        <button id="delete-account-btn" class="delete-button">Delete</button>
-        <p id="delete-confirm-text" style="display: none;">Are you sure?</p>
-        <button id="confirm-delete-account-btn" style="display: none;">Yes, delete</button>        
+        </button>
+        <button id="delete-account-btn" class="delete-button">Delete account</button>
+        <p id="delete-confirm-text" style="display: none;"><br><br><b>Are you sure?</b><br><br></p>
+        <button id="confirm-delete-account-btn" class="delete-button" style="display: none;">Yes, I want to DELETE</button>        
       </form>
     </main>
     </main>

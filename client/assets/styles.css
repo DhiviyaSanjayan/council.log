@@ -272,7 +272,7 @@ main {
 }
 
 .account-body {
-  font-size: 1.7rem;
+  font-size: 1.9rem;
   margin-top: 20px;
   margin-bottom: 40px;
 }
@@ -322,3 +322,14 @@ td {
   color: var(--hover-background-blue);
   text-decoration: none;
 }
+
+table a {
+  color: #007BFF; 
+  text-decoration: none;
+}
+
+table a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
