@@ -24,32 +24,32 @@ class UserController {
     }
 
 
-  static async getUserByUsername(req, res) {
-    const { username } = req.body;
-    try {
-      const user = await User.getByUsername(username);
-      console.log(user);
-      res.json(user);
-    } catch (error) {
-      console.log(error);
-      res.status(404).json({ error: "User not found." });
+    static async getUserByUsername(req, res) {
+        const { username } = req.body;
+        try {
+            const user = await User.getByUsername(username);
+            console.log(user);
+            res.json(user);
+        } catch (error) {
+            console.log(error);
+            res.status(404).json({ error: "User not found." });
 
+        }
     }
-  }
 
-  static async getUserByEmail(req, res) {
-    const { email } = req.body;
-    console.log(email);
-    try {
-      const user = await User.getByEmail(email);
-      console.log(user);
-      res.json(user);
-    } catch (error) {
-      console.log(error);
-      res.status(404).json({ error: "User not found." });
+    static async getUserByEmail(req, res) {
+        const { email } = req.body;
+        console.log(email);
+        try {
+            const user = await User.getByEmail(email);
+            console.log(user);
+            res.json(user);
+        } catch (error) {
+            console.log(error);
+            res.status(404).json({ error: "User not found." });
 
+        }
     }
-  }
 
     static async createUser(req, res) {
         const { email, username, password, isStudent, isTeacher } = req.body;
@@ -132,10 +132,22 @@ class UserController {
                 throw new Error("Wrong username or password");
             } else {
                 const token = await Token.create(user.id);
-                res.status(200).json({ authenticated: true, token: token.token });
+                res.status(200).json({ authenticated: true, user, token: token.token });
             }
         } catch (error) {
             res.status(403).json({ error: error.message });
+        }
+    }
+
+    static async logout(req, res) {
+        try {
+            const token = req.headers.authorization;
+
+            await Token.deleteByToken(token);
+
+            res.status(200).json({ message: "Logged out successfully." });
+        } catch (error) {
+            res.status(500).json({ error: "Unable to logout." });
         }
     }
 }
