@@ -32,35 +32,76 @@ getUser(token).then((user) => {
 });
 
 
+// Function to create table row with class data
+function createClassRow(classData) {
+  const row = document.createElement('tr');
+  row.innerHTML = `
+      <td>${classData.class_name}</td>
+      <td>${classData.category}</td>
+      <td>${new Date(classData.class_time).toLocaleString()}</td>
+      <td>${classData.duration}</td>
+      <td>${classData.role}</td>
+  `;
+  return row;
+}
+
+
 async function fetchUser() {
-    if (!token) {
-      // Redirect to login page if no token is found
-      window.location.href = '/client/login';
-      return;
-    }
+  if (!token) {
+    window.location.href = '/client/login';
+    return;
+  }
+
+  const user = await getUser(token);
   
-    const user = await getUser(token);
+  if (!user.error) {
+    greeting.textContent = user.firstName;
+    logoutBtn.textContent = "Log Out";
+    welcomeBack.textContent = `Welcome back, `;
+  } else {
+    window.location.href = '/client/login';
+    return;
+  }
   
-    if (!user.error) {
-      greeting.textContent = user.firstName;
-      logoutBtn.textContent = "Log Out";
-      welcomeBack.textContent = `Welcome back, `;
-    } else {
-      // Redirect to login page if user details retrieval fails
-      window.location.href = '/client/login';
-      return;
-    }
-  
-    try {
-      const response = await fetch(`http://localhost:3000/user/${user.id}`, {
+  try {
+    const response = await fetch(`http://localhost:3000/user/${user.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    
+    if (response.ok) {
+      const user = await response.json();
+
+      // Fetch past classes
+      const pastClassesResponse = await fetch(`http://localhost:3000/user/${user.id}/classes/past`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-  
-      if (response.ok) {
-        const user = await response.json();
-        console.log(user)
+      const pastClasses = await pastClassesResponse.json();
+
+      // Populate past classes table
+      const pastClassesBody = document.getElementById('past-classes-body');
+      pastClassesBody.innerHTML = ''; // Clear existing rows
+      for (const classData of pastClasses) {
+          pastClassesBody.appendChild(createClassRow(classData));
+      }
+
+      // Fetch future classes
+      const futureClassesResponse = await fetch(`http://localhost:3000/user/${user.id}/classes/future`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const futureClasses = await futureClassesResponse.json();
+
+      // Populate future classes table
+      const futureClassesBody = document.getElementById('future-classes-body');
+      futureClassesBody.innerHTML = ''; // Clear existing rows
+      for (const classData of futureClasses) {
+          futureClassesBody.appendChild(createClassRow(classData));
+      }
   
         // Populate the form with user details
         document.getElementById('username').value = user.username;
