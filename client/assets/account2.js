@@ -75,7 +75,7 @@ async function fetchUser() {
     });
 
     if (response.ok) {
-      const user = await response.json();
+      const userData = await response.json();
 
       // Fetch past classes
       const pastClassesResponse = await fetch(
@@ -114,8 +114,8 @@ async function fetchUser() {
       }
 
       // Populate the form with user details
-      document.getElementById("username").value = user.username;
-      document.getElementById("email").value = user.email;
+      document.getElementById("username").value = userData.username;
+      document.getElementById("email").value = userData.email;
 
       document
         .getElementById("change-password-link")
@@ -159,11 +159,15 @@ async function fetchUser() {
           }
 
           // Prepare the updated user data
-          const updatedUser = {
-            username,
-            email,
-            currentPassword,
-          };
+          const updatedUser = {};
+
+          if (username) {
+            updatedUser.username = username;
+          }
+
+          if (email) {
+            updatedUser.email = email;
+          }
 
           if (
             password !== "" &&
@@ -173,11 +177,16 @@ async function fetchUser() {
             updatedUser.password = password;
           }
 
+          if (Object.keys(updatedUser).length === 0) {
+            alert("No changes detected.");
+            return;
+          }
+
           try {
             const response = await fetch(
               `http://localhost:3000/user/${user.id}`,
               {
-                method: "PUT",
+                method: "PATCH",
                 headers: {
                   "Content-Type": "application/json",
                   Authorization: `Bearer ${token}`,
