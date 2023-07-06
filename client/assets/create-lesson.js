@@ -42,43 +42,38 @@ document
     try {
       teacherId = localStorage.getItem("userId");
 
+      const classData = {
+        category,
+        class_name: className,
+        class_time: classTime,
+        address,
+        duration,
+        description,
+        teacher_id: teacherId,
+      };
 
+      const classResponse = await fetch("http://localhost:3000/class", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(classData),
+      });
 
-
-        const classData = {
-            category,
-            class_name: className,
-            class_time: classTime,
-            address,
-            duration,
-            description,
-            teacher_id: teacherId,
-        };
-
-        const classResponse = await fetch("http://localhost:3000/class", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(classData),
-        });
-
-        if (classResponse.ok) {
-            const data = await classResponse.json();
-            console.log(data);
-            alert("Class created successfully!");
-            window.location.replace("./client/index.html");
-
-        } else {
-            const errorResponse = await classResponse.json();
-            console.error("Error:", errorResponse);
-            alert("An error occurred while creating the class. Please try again.");
-        }
-    } catch (error) {
-        console.error("Error:", error);
+      if (classResponse.ok) {
+        const data = await classResponse.json();
+        console.log(data);
+        alert("Class created successfully!");
+        window.location.replace("../");
+      } else {
+        const errorResponse = await classResponse.json();
+        console.error("Error:", errorResponse);
         alert("An error occurred while creating the class. Please try again.");
       }
-   
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred while creating the class. Please try again.");
+    }
   });
 logoutBtn.addEventListener("click", (e) => {
   e.preventDefault();
