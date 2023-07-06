@@ -1,55 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Florin Skills - Create Lesson</title>
     <link rel="icon" type="image/x-icon" href="../assets/icon.svg" />
     <link rel="stylesheet" href="../assets/styles.css" />
     <script src="../assets/create-lesson.js" defer></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="header-banner">
-        <h3><span class="crystal-colour-word">Florin</span> Council</h3>
+      <h3><span class="crystal-colour-word">Florin</span> Council</h3>
+      <div class="greeting">
+        <span class="welcome-back"> Welcome back,</span>
+        <a href="../account" class="greeting-username"></a>
+        <button class="log-out-button">Log Out</button>
+      </div>
     </div>
     <div class="welcome-banner">
-        <a href="../index.html" data-text="Home" class="banner-button"><img src="../assets/icon.svg" alt="homeicon"
-                class="logo" /></a>
-        <div class="welcome-title-section">
-            <p>Welcome to</p>
-            <a href="../index.html" class="platform-name">
-                <h1>Florin Skills</h1>
-            </a>
-            <h3>A platform to make the community more skilful</h3>
-        </div>
+      <a href="../index.html" data-text="Home" class="banner-button"
+        ><img src="../assets/icon.svg" alt="homeicon" class="logo"
+      /></a>
+      <div class="welcome-title-section">
+        <p>Welcome to</p>
+        <a href="../index.html" class="platform-name">
+          <h1>Florin Skills</h1>
+        </a>
+        <h3>A platform to make the community more skilful</h3>
+      </div>
     </div>
 
     <main>
-        <h1 class="body-title">Create a new class</h1>
-        <form class="register-form" id="create-lesson-form">
-            <label for="category">Category*</label>
-            <input type="text" name="category" id="category" placeholder="Pottery" required />
+      <h1 class="body-title">Create a new class</h1>
+      <form class="register-form" id="create-lesson-form">
+        <label for="category">Category*</label>
+        <input
+          type="text"
+          name="category"
+          id="category"
+          placeholder="Pottery"
+          required
+        />
 
-            <label for="class-name">Class Name*</label>
-            <input type="text" name="className" id="class-name" placeholder="Wheel Throwing" required />
+        <label for="class-name">Class Name*</label>
+        <input
+          type="text"
+          name="className"
+          id="class-name"
+          placeholder="Wheel Throwing"
+          required
+        />
 
-            <label for="class-time">Class Time*</label>
-            <input type="datetime-local" name="classTime" id="class-time" required />
+        <label for="class-time">Class Time*</label>
+        <input
+          type="datetime-local"
+          name="classTime"
+          id="class-time"
+          required
+        />
 
-            <label for="duration">Duration (minutes)*</label>
-            <input type="number" name="duration" id="duration" placeholder="60" required />
+        <label for="duration">Duration (minutes)*</label>
+        <input
+          type="number"
+          name="duration"
+          id="duration"
+          placeholder="60"
+          required
+        />
 
-            <label for="description">Description*</label>
-            <textarea name="description" id="description" rows="5"
-                placeholder="Learn the skill of wheel throwing and create beautiful pottery." required></textarea>
+        <label for="duration">Duration (minutes)*</label>
+        <input
+          type="number"
+          name="duration"
+          id="duration"
+          placeholder="60"
+          required
+        />
 
-            <button type="submit" class="body-button" id="submit-button">
-                Create Class
-            </button>
-        </form>
+        <label for="description">Description*</label>
+        <textarea
+          name="description"
+          id="description"
+          rows="5"
+          placeholder="Learn the skill of wheel throwing and create beautiful pottery."
+          required
+        ></textarea>
+
+        <button type="submit" class="body-button" id="submit-button">
+          Create Class
+        </button>
+      </form>
     </main>
-</body>
-
+  </body>
 </html>
