@@ -17,5 +17,6 @@ router.post("/logout", UserController.logout);
 router.get("/:id/classes", UserController.getUserClasses);
 router.get("/:id/classes/past", UserController.getUserPastClasses);
 router.get("/:id/classes/future", UserController.getUserFutureClasses);
+router.get("/checkEmailToken/:token", UserController.checkEmailToken);
 
 module.exports = router;
