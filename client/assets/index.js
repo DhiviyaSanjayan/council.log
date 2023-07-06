@@ -34,7 +34,7 @@ getUser(token).then((user) => {
 });
 
 hostLesson.addEventListener("click", () => {
-  window.location.replace("./host-lesson");
+  window.location.replace("./create-lesson");
 });
 joinLesson.addEventListener("click", () => {
   window.location.replace("./join-lesson");
