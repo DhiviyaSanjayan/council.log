@@ -12,7 +12,7 @@ submitBtn.addEventListener("click", async (e) => {
 
 async function logIn(username, password) {
   console.log(username, password);
-  const res = await fetch("http://localhost:3000/user/login", {
+  const res = await fetch("http://localhost:5050/user/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -26,6 +26,7 @@ async function logIn(username, password) {
   if (res.status === 200) {
     const data = await res.json();
     localStorage.setItem("token", data.token);
+    localStorage.setItem("userId", data.user.id);
     window.location.replace(`../`);
   } else {
     incorrectCredential.classList.remove("hidden");
