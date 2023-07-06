@@ -68,3 +68,51 @@ logoutBtn.addEventListener("click", (e) => {
   localStorage.removeItem("token");
   window.location.replace("../login");
 });
+
+
+mapboxgl.accessToken = 'pk.eyJ1IjoiZWxsaW90Y2xvd2VzIiwiYSI6ImNsanJhbjIwajBndHQzanM1OGx2d2w1azMifQ.ut8qjqZGltsfhsImDTS1Sw'; // Replace 'YOUR_ACCESS_TOKEN' with your actual access token
+
+// Create a new map instance
+const map = new mapboxgl.Map({
+  container: 'map', // Specify the container element ID
+  style: 'mapbox://styles/mapbox/streets-v11', // Specify the map style
+  center: [0, 0], // Initial center longitude and latitude
+  zoom: 10 // Initial zoom level
+});
+
+
+// Obtain the address from your API route
+fetch('/class/6/address')
+  .then(response => response.json())
+  .then(data => {
+    const address = data.address;
+
+    // Use Mapbox Geocoding API to retrieve coordinates for the address
+    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=pk.eyJ1IjoiZWxsaW90Y2xvd2VzIiwiYSI6ImNsanJhbjIwajBndHQzanM1OGx2d2w1azMifQ.ut8qjqZGltsfhsImDTS1Sw`)
+      .then(response => response.json())
+      .then(data => {
+        const coordinates = data.features[0].geometry.coordinates; // Extract the coordinates from the response
+
+        // Initialize the map with the obtained coordinates
+        mapboxgl.accessToken = 'YOUR_ACCESS_TOKEN';
+        const map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/mapbox/streets-v11',
+          center: coordinates,
+          zoom: 10
+        });
+
+        // Add a marker to the map at the specified coordinates
+        new mapboxgl.Marker({
+          color: 'red' // Customize the marker color if desired
+        })
+        .setLngLat(coordinates)
+        .addTo(map);
+    })
+    .catch(error => {
+      console.error('Error retrieving coordinates:', error);
+    });
+})
+.catch(error => {
+  console.error('Error retrieving address:', error);
+});
