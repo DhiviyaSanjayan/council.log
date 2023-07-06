@@ -26,6 +26,7 @@ async function logIn(username, password) {
   if (res.status === 200) {
     const data = await res.json();
     localStorage.setItem("token", data.token);
+    localStorage.setItem("userId", data.user.id);
     window.location.replace(`../`);
   } else {
     incorrectCredential.classList.remove("hidden");

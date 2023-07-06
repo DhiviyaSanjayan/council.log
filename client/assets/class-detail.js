@@ -95,3 +95,8 @@ joinBtn.addEventListener("click", async (e) => {
   }
   console.log(data);
 });
+logoutBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  localStorage.removeItem("token");
+  window.location.replace("../login");
+});

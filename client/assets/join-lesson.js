@@ -58,3 +58,8 @@ getClasses().then(async (data) => {
     table.append(tr);
   });
 });
+logoutBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  localStorage.removeItem("token");
+  window.location.replace("../login");
+});

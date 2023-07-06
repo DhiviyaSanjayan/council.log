@@ -24,6 +24,7 @@ async function getUser(token) {
   return result;
 }
 getUser(token).then((user) => {
+  console.log(user);
   if (!user.error) {
     greeting.textContent = user.firstName;
     logoutBtn.textContent = "Log Out";
