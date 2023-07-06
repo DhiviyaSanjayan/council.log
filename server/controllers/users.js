@@ -192,6 +192,7 @@ class UserController {
     } catch (error) {
       res.status(404).json({ error: "User not found." });
     }
+
   }
   static async checkEmailToken(req, res) {
     const { token } = req.params;
@@ -206,6 +207,42 @@ class UserController {
       res.status(400).json(error);
     }
   }
+
+
+
+    static async partialUpdateUser(req, res) {
+        const { id } = req.params;
+        const { username, email, password } = req.body;
+    
+        try {
+          const user = await User.getById(id);
+    
+          if (username) {
+            user.username = username;
+          }
+    
+          if (email) {
+            user.email = email;
+          }
+    
+          if (password) {
+            const rounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
+            const salt = await bcrypt.genSalt(rounds);
+            user.password = await bcrypt.hash(password, salt);
+          }
+    
+          await user.patchUser();
+    
+          res.json({ message: "User information updated successfully." });
+        } catch (error) {
+          console.error("Error updating user:", error);
+          res.status(500).json({ error: "Failed to update user information." });
+        }
+      }
+
+
+
+
 }
 
 module.exports = UserController;
