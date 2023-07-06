@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS registrations CASCADE;
 DROP TABLE IF EXISTS classes CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS tokens CASCADE;
+DROP TABLE IF EXISTS verification_tokens CASCADE;
 
 
 CREATE TABLE users (
@@ -15,7 +16,8 @@ CREATE TABLE users (
     is_student BOOLEAN DEFAULT false,
     is_teacher BOOLEAN DEFAULT false,
     student_points INTEGER DEFAULT 0,
-    teacher_points INTEGER DEFAULT 0
+    teacher_points INTEGER DEFAULT 0,
+    is_verified BOOLEAN DEFAULT false
 );
 
 CREATE TABLE classes (
@@ -53,13 +55,18 @@ CREATE TABLE tokens (
   token VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE verification_tokens(
+    token_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(user_id)  ON DELETE CASCADE NOT NULL,
+    token VARCHAR(255) NOT NULL
+);
 
-INSERT INTO users (first_name, last_name, email, username, password, is_student, is_teacher, student_points, teacher_points)
+INSERT INTO users (first_name, last_name, email, username, password, is_student, is_teacher, student_points, teacher_points, is_verified)
 VALUES 
-    ('John', 'Doe', 'user1@example.com', 'user1', 'password1', true, false, 100, 0),
-    ('Jane', 'Smith', 'user2@example.com', 'user2', 'password2', true, false, 50, 0),
-    ('Mike', 'Johnson', 'user3@example.com', 'user3', 'password3', false, true, 0, 200),
-    ('Emily', 'Davis', 'user4@example.com', 'user4', 'password4', true, true, 50, 150);
+    ('John', 'Doe', 'user1@example.com', 'user1', 'password1', true, false, 100, 0, true),
+    ('Jane', 'Smith', 'user2@example.com', 'user2', 'password2', true, false, 50, 0,true),
+    ('Mike', 'Johnson', 'user3@example.com', 'user3', 'password3', false, true, 0, 200,true),
+    ('Emily', 'Davis', 'user4@example.com', 'user4', 'password4', true, true, 50, 150,true);
 
 
 INSERT INTO classes (category, class_name, class_time, address, duration, description, teacher_id, is_group)
