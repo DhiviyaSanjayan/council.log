@@ -39,7 +39,12 @@ getUser(token).then((user) => {
 });
 getClasses().then(async (data) => {
   const teacherInfo = await getTeacherName();
-  data.forEach((el) => {
+  console.log(new Date(data[0].classTime));
+  const futureLesson = data.filter(
+    (el) => new Date(el.classTime).getTime() > new Date().getTime()
+  );
+
+  futureLesson.forEach((el) => {
     const tr = document.createElement("tr");
     const classCell = document.createElement("td");
 
