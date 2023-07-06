@@ -12,7 +12,7 @@ submitBtn.addEventListener("click", async (e) => {
 
 async function logIn(username, password) {
   console.log(username, password);
-  const res = await fetch("http://localhost:5050/user/login", {
+  const res = await fetch("http://localhost:3000/user/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

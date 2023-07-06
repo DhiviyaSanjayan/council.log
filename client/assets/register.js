@@ -54,7 +54,7 @@ function validateEmail(email) {
   ).test(email);
 }
 async function checkEmailIsUsed(email) {
-  const res = await fetch("http://localhost:5050/user/email", {
+  const res = await fetch("http://localhost:3000/user/email", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -70,7 +70,7 @@ async function checkEmailIsUsed(email) {
   }
 }
 async function checkUsernameIsUsed(username) {
-  const res = await fetch("http://localhost:5050/user/username", {
+  const res = await fetch("http://localhost:3000/user/username", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -86,7 +86,7 @@ async function checkUsernameIsUsed(username) {
   }
 }
 async function registerUser(email, username, password, firstName, lastName) {
-  const res = await fetch("http://localhost:5050/user/register", {
+  const res = await fetch("http://localhost:3000/user/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

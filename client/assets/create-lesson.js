@@ -23,7 +23,7 @@ document.getElementById("create-lesson-form").addEventListener("submit", async f
             teacher_id: teacherId,
         };
 
-        const classResponse = await fetch("http://localhost:5050/class", {
+        const classResponse = await fetch("http://localhost:3000/class", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -35,6 +35,7 @@ document.getElementById("create-lesson-form").addEventListener("submit", async f
             const data = await classResponse.json();
             console.log(data);
             alert("Class created successfully!");
+            window.location.replace("./client/index.html");
 
         } else {
             const errorResponse = await classResponse.json();
