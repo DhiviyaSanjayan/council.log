@@ -11,24 +11,28 @@ submitBtn.addEventListener("click", async (e) => {
 });
 
 async function logIn(username, password) {
-  console.log(username, password);
-  const res = await fetch("http://localhost:3000/user/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username,
-      password,
-    }),
-  });
-
-  if (res.status === 200) {
+  try {
+    const res = await fetch("http://localhost:3000/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
     const data = await res.json();
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("userId", data.user.id);
-    window.location.replace(`../`);
-  } else {
+    console.log(data);
+
+    if (res.status === 200 && !data.user.isVerified) {
+      alert("Your account is not yet verified. Please check your email.");
+    } else if (res.status === 200 && data.user.isVerified) {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.user.id);
+      window.location.replace(`../`);
+    }
+  } catch (error) {
     incorrectCredential.classList.remove("hidden");
     return;
   }

@@ -24,7 +24,7 @@ async function getUser(token) {
   return result;
 }
 getUser(token).then((user) => {
-  if (!user.error) {
+  if (!user.error && user.isVerified) {
     greeting.textContent = user.firstName;
     logoutBtn.textContent = "Log Out";
     welcomeBack.textContent = `Welcome back, `;

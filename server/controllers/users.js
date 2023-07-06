@@ -28,7 +28,7 @@ class UserController {
     const { username } = req.body;
     try {
       const user = await User.getByUsername(username);
-      console.log(user);
+
       res.json(user);
     } catch (error) {
       console.log(error);
@@ -125,7 +125,7 @@ class UserController {
 
   static async login(req, res) {
     const data = req.body;
-    console.log(data);
+
     try {
       const user = await User.getByUsername(data.username);
       const authenticated = await bcrypt.compare(data.password, user.password);
@@ -194,12 +194,13 @@ class UserController {
     }
   }
   static async checkEmailToken(req, res) {
-    // const { token } = req.params;
+    const { token } = req.params;
     try {
-      console.log("run");
       const verifiedToken = await Verification.getOneByToken(token);
+      console.log({ verifiedToken });
+      const user = await User.verifyUser(verifiedToken.user_id);
       await Verification.deleteByToken(verifiedToken.token_id);
-      await User.verifyUser(verifiedToken.user_id);
+      console.log(user);
       res.status(200).json({ message: "Token is valid" });
     } catch (error) {
       res.status(400).json(error);

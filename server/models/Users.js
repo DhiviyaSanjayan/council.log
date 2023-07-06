@@ -161,9 +161,10 @@ class User {
   }
   static async verifyUser(id) {
     const response = await db.query(
-      `UPDATE users SET is_verified = true WHERE user_id = $1`,
+      `UPDATE users SET is_verified = true WHERE user_id = $1 RETURNING *`,
       [id]
     );
+
     return response.rows[0];
   }
 }
