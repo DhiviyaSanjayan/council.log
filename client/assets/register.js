@@ -86,6 +86,7 @@ async function checkUsernameIsUsed(username) {
   }
 }
 async function registerUser(email, username, password, firstName, lastName) {
+  console.log("run");
   const res = await fetch("http://localhost:3000/user/register", {
     method: "POST",
     headers: {
