@@ -41,11 +41,11 @@ function capitalizeFirstLetter(string) {
 function createClassRow(classData) {
   const row = document.createElement('tr');
   row.innerHTML = `
-      <td><a href="../class-detail/?id=${classData.class_id}">${classData.class_name}</a></td>
-      <td>${classData.category}</td>
-      <td>${new Date(classData.class_time).toLocaleString()}</td>
-      <td>${classData.duration}</td>
-      <td>${capitalizeFirstLetter(classData.role)}</td>
+    <td><a href="../class-detail/?id=${classData.class_id}">${classData.class_name}</a></td>
+    <td>${classData.category}</td>
+    <td>${new Date(classData.class_time).toLocaleString()}</td>
+    <td>${classData.duration}</td>
+    <td>${capitalizeFirstLetter(classData.role)}</td>
   `;
   return row;
 }
