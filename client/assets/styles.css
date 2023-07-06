@@ -2,7 +2,13 @@
   --background-blue: #4c73d7;
   --hover-background-blue: #2f4a8c;
   --crystal-pink: #e0b1a9;
+  --linear-gradient-blue: linear-gradient(
+    0.2turn,
+    var(--background-blue),
+    #f7ff00
+  );
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -10,52 +16,141 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
+
 input {
   display: block;
-  font-size: 2rem;
+  font-size: 1.8rem;
   padding: 0.5rem;
   font-weight: 500;
-  width: 80%;
+  width: 100%;
   margin-bottom: 2rem;
-  border: 3px solid black;
+  border: 2px solid black;
+  border-radius: 10px;
 }
+
+textarea {
+  display: block;
+  font-size: 1.4rem;
+  padding: 0.5rem;
+  font-weight: 500;
+  width: 100%;
+  margin-bottom: 2rem;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
 button {
   cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.2s;
 }
+
 label {
   display: block;
   font-weight: 400;
   font-size: 1.5rem;
   padding-bottom: 0.5rem;
 }
+
 .body-button {
   background-color: var(--background-blue);
   padding: 1rem;
   font-weight: normal;
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   border: 0;
-  font-weight: 700;
+  font-weight: 500;
 }
+
+.home-icon:hover {
+  box-shadow: 0 0 8px #9eb7f5;
+}
+
 .body-button:hover {
   background-color: var(--hover-background-blue);
 }
+
+.delete-button {
+  background-color: #c82a2a;
+  padding: 1rem;
+  font-weight: normal;
+  color: white;
+  font-size: 1.2rem;
+  border: 0;
+  font-weight: 500;
+}
+.delete-button:hover {
+  background-color: #7b2424;
+}
+
 .crystal-colour-word {
   color: var(--crystal-pink);
+  font-weight: 700;
 }
+
 .header-banner {
   background-color: black;
   color: white;
   padding: 0.5vw 20%;
   font-size: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-banner h3 {
   font-weight: 300;
 }
-.welcome-banner {
+
+.setting-icon {
+  width: 50px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.greeting {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+.greeting-username {
+  color: white;
+}
+
+.greeting-username:hover {
+  text-decoration-thickness: 3px;
+}
+
+.log-out-button {
+  color: white;
   background-color: var(--background-blue);
+  padding: 10px;
+  border: none;
+  margin: 0 10px;
+}
+
+.log-out-button:hover {
+  background-color: var(--hover-background-blue);
+}
+
+.logo {
+  padding-right: 50px;
+  width: 150px;
+}
+
+.platform-name {
+  color: white;
+  text-decoration: none;
+}
+
+.welcome-banner {
+  background: var(--linear-gradient-blue);
   color: white;
   padding: 3vw 20%;
   display: grid;
-  grid-template-columns: 4fr 1fr;
+
+  grid-template-columns: 1fr 7fr;
   align-items: center;
 }
 
@@ -67,16 +162,189 @@ label {
 .banner-button {
   color: white;
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 300;
 }
+
 .banner-button:hover {
   text-decoration: underline 3px;
   color: #bbc8ea;
 }
+
 main {
-  padding: 4vw 20%;
+  padding: 4vw 25%;
 }
+
 .body-title {
-  font-size: 4rem;
-  margin-bottom: 4vw;
+  font-size: 3rem;
+}
+
+.incorrect-credential {
+  margin-top: 20px;
+  color: red;
+}
+
+.incorrect-credential.hidden {
+  display: none;
+}
+
+.log-in-form,
+.register-form {
+  margin-top: 30px;
+  display: block;
+}
+
+.create-account {
+  margin: 2rem 0;
+}
+
+.warning {
+  color: red;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.warning.hidden {
+  display: none;
+}
+
+.first-last-name-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.dashboard-greeting {
+  margin-bottom: 20px;
+}
+
+.welcome-back {
+  padding: 0px 10px;
+}
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 40px 0;
+}
+
+.dashboard-container-card {
+  box-shadow: 0 0 20px rgb(236, 236, 236);
+  border-radius: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-container-card-img-container {
+  overflow: hidden;
+  padding: 20px;
+}
+
+.dashboard-container-card-img-container img {
+  object-fit: cover;
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 15px;
+}
+
+.dashboard-container-card p {
+  font-size: 1.5rem;
+  padding: 20px;
+  background-color: var(--background-blue);
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  color: white;
+  flex: 1;
+}
+
+.dashboard-container-card:hover p {
+  background-color: var(--hover-background-blue);
+}
+
+.vision-section h1 {
+  padding: 4vw 0;
+}
+.vision-section p {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  text-align: justify;
+}
+
+.account-body {
+  font-size: 1.9rem;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+table {
+  text-align: center;
+  width: 100%;
+  margin: 40px 0;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 25px;
+  border-bottom: 1px solid black;
+  vertical-align: middle;
+}
+
+th {
+  font-size: 1.2rem;
+}
+td {
+  font-size: 1.2rem;
+}
+.teacher-title,
+.duration,
+.description,
+.join-button {
+  margin: 30px 0;
+}
+.join-button {
+  padding: 15px;
+  border: none;
+  background-color: var(--background-blue);
+  color: white;
+  font-size: 1.2rem;
+}
+
+#change-password-link {
+  cursor: pointer;
+  font-size: 1.1rem;
+  text-decoration: underline;
+  color: #000;
+}
+
+#change-password-link:hover {
+  color: var(--hover-background-blue);
+  text-decoration: none;
+}
+
+table a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+table a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.back-to-account {
+  color: black;
+  text-decoration: none;
+  font-size: 1.4rem;
+  display: block;
+  margin-bottom: 30px;
+}
+.back-to-account:hover {
+  text-decoration: underline;
+}
+.student-list-name {
+  margin: 10px 0;
 }

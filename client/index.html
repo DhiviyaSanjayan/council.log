@@ -3,9 +3,67 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Floren Skills</title>
+    <title>Dashboard</title>
+    <script src="./assets/index.js" defer></script>
+    <link rel="shortcut icon" href="./assets/icon.svg" type="image/x-icon" />
+    <link rel="stylesheet" href="./assets/styles.css" />
   </head>
   <body>
-    Landing Page
+    <div class="header-banner">
+      <h3><span class="crystal-colour-word">Florin</span> Council</h3>
+      <div class="greeting">
+        <span class="welcome-back"></span>
+        <a href="./account" class="greeting-username"></a>
+
+        <button class="log-out-button">Log In</button>
+      </div>
+    </div>
+    <div class="welcome-banner">
+      <a href="./index.html" data-text="Home" class="banner-button"
+        ><img src="./assets/icon.svg" alt="homeicon" class="logo"
+      /></a>
+      <div class="welcome-title-section">
+        <p>Welcome to</p>
+        <a href="./index.html" class="platform-name"><h1>Florin Skills</h1></a>
+        <h3>A platform to make the community more skilful</h3>
+      </div>
+    </div>
+
+    <main
+      style="
+        padding: 4vw 8vw;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+      "
+    >
+      <div class="dashboard-container">
+        <div class="dashboard-container-card" id="hostLesson">
+          <div class="dashboard-container-card-img-container">
+            <img src="./assets/teaching.webp" alt="teaching pic" />
+          </div>
+          <p>Host a lesson</p>
+        </div>
+        <div class="dashboard-container-card" id="joinLesson">
+          <div class="dashboard-container-card-img-container">
+            <img src="./assets/learning.jpg" alt="teaching pic" />
+          </div>
+          <p>Join a lesson</p>
+        </div>
+      </div>
+      <div class="vision-section">
+        <h1>Share your skill. Share your love.</h1>
+        <p>
+          Our vision is to create a dynamic online platform that facilitates
+          voluntary knowledge sharing through community-hosted classes. Florin
+          Skills connects individuals eager to teach with those who are eager to
+          learn, fostering a vibrant environment for knowledge exchange within
+          our community. Reserve your spot in the classes available or even host
+          your own! Join us in building a community where we freely share our
+          expertise with each other, creating a lasting impact through the power
+          of knowledge exchange.
+        </p>
+      </div>
+    </main>
   </body>
 </html>
