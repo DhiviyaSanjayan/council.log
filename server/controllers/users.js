@@ -72,20 +72,13 @@ class UserController {
 
     static async updateUser(req, res) {
         const { id } = req.params;
-        const { username, email, password, isStudent, isTeacher } = req.body;
+        const { username, password, isStudent, isTeacher } = req.body;
         try {
             const user = await User.getById(id);
             user.username = username;
-            user.email = email;
+            user.password = password;
             user.isStudent = isStudent;
             user.isTeacher = isTeacher;
-
-            if (password) {
-                const rounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
-                const salt = await bcrypt.genSalt(rounds);
-                user.password = await bcrypt.hash(password, salt);
-            }
-
             await user.update();
             res.json(user);
         } catch (error) {
@@ -93,15 +86,10 @@ class UserController {
         }
     }
 
-
-
-
     static async deleteUser(req, res) {
         const { id } = req.params;
-        console.log(`THIS IS ID`, id)
         try {
             const user = await User.getById(id);
-            console.log(`THIS IS USER`, user)
             await user.delete();
             res.json({ message: "User deleted successfully." });
         } catch (error) {
@@ -135,7 +123,6 @@ class UserController {
             } else {
                 const token = await Token.create(user.id);
                 res.status(200).json({ authenticated: true, user, token: token.token });
-                localStorage.setItem('token', token.token);
             }
         } catch (error) {
             res.status(403).json({ error: error.message });
@@ -167,14 +154,14 @@ class UserController {
     static async getUserClasses(req, res) {
         const { id } = req.params;
         try {
-          const userClasses = await User.getClasses(id);
-          res.json(userClasses);
+            const userClasses = await User.getClasses(id);
+            res.json(userClasses);
         } catch (error) {
-          res.status(404).json({ error: "Unable to fetch classes." });
+            res.status(404).json({ error: "Unable to fetch classes." });
         }
-      }
-    
-      static async getUserPastClasses(req, res) {
+    }
+
+    static async getUserPastClasses(req, res) {
         const { id } = req.params;
         try {
             const classes = await User.getPastClasses(id);
@@ -184,7 +171,7 @@ class UserController {
             res.status(404).json({ error: "User not found." });
         }
     }
-    
+
     static async getUserFutureClasses(req, res) {
         const { id } = req.params;
         try {
@@ -195,7 +182,7 @@ class UserController {
             res.status(404).json({ error: "User not found." });
         }
     }
-    
+
 
 }
 
