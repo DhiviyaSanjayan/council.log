@@ -38,7 +38,7 @@ class UserController {
 
   static async getUserByEmail(req, res) {
     const { email } = req.body;
-    console.log(email);
+
     try {
       const user = await User.getByEmail(email);
       console.log(user);
@@ -99,10 +99,11 @@ class UserController {
     const rounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
     try {
       const data = req.body;
+      console.log(data);
       const salt = await bcrypt.genSalt(rounds);
       data.password = await bcrypt.hash(data.password, salt);
       const result = await User.create(data);
-      const verificationToken = await Verification.create(result.id).token;
+      const verificationToken = (await Verification.create(result.id)).token;
       console.log(verificationToken);
       const url = `${process.env.BASE_URL}emailVerification/?token=${verificationToken}`;
       console.log(url);
@@ -190,6 +191,18 @@ class UserController {
       res.json(classes);
     } catch (error) {
       res.status(404).json({ error: "User not found." });
+    }
+  }
+  static async checkEmailToken(req, res) {
+    // const { token } = req.params;
+    try {
+      console.log("run");
+      const verifiedToken = await Verification.getOneByToken(token);
+      await Verification.deleteByToken(verifiedToken.token_id);
+      await User.verifyUser(verifiedToken.user_id);
+      res.status(200).json({ message: "Token is valid" });
+    } catch (error) {
+      res.status(400).json(error);
     }
   }
 }

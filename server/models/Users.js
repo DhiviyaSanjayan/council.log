@@ -1,5 +1,5 @@
 const db = require("../database/db");
-const sgMail = require("@sendgrid/mail");
+
 require("dotenv").config();
 
 class User {
@@ -159,7 +159,13 @@ class User {
     );
     return response.rows;
   }
-  static async sendVerificationEmail() {}
+  static async verifyUser(id) {
+    const response = await db.query(
+      `UPDATE users SET is_verified = true WHERE user_id = $1`,
+      [id]
+    );
+    return response.rows[0];
+  }
 }
 
 module.exports = User;

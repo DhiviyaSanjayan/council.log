@@ -29,7 +29,7 @@ class Verification {
   }
 
   static async getOneByToken(token) {
-    const query = "SELECT * FROM verification_tokens WHERE token_id = $1";
+    const query = "SELECT * FROM verification_tokens WHERE token = $1";
     const response = await db.query(query, [token]);
     if (response.rows.length !== 1) {
       throw new Error("Unable to locate token.");
