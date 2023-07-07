@@ -7,14 +7,10 @@ async function checkToken(token) {
     `http://localhost:3000/user/checkEmailToken/${token}`
   );
   if (res.ok) {
-    const showVerified = document.querySelector(".verified");
-    showVerified.classList.remove("hidden");
     setTimeout(() => {
       window.location.replace("../login");
     }, 3000);
   } else {
-    const showInvalid = document.querySelector(".invalid-token");
-    showInvalid.classList.remove("hidden");
     setTimeout(() => {
       window.location.replace("../");
     }, 3000);
