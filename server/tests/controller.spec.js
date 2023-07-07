@@ -18,8 +18,10 @@ jest.mock('../models/PointsLog');
 jest.mock('../models/Registration');
 jest.mock('../models/Token');
 jest.mock('../models/Users');
-
-
+jest.mock('bcrypt', () => ({
+    genSalt: jest.fn(() => Promise.resolve('randomSalt')),
+    hash: jest.fn(() => Promise.resolve('hashedPassword')),
+}));
 
 
 describe("ClassesController", () => {
@@ -37,6 +39,62 @@ describe("ClassesController", () => {
 
     beforeEach(() => {
         jest.clearAllMocks();
+    });
+
+    test("getAllUsers returns users", async () => {
+        const req = mockRequest();
+        const res = mockResponse();
+
+        const usersData = [{ id: 1, username: 'test' }];
+        User.getAll.mockResolvedValue(usersData);
+
+        await UserController.getAllUsers(req, res);
+
+        expect(res.json).toHaveBeenCalledWith(usersData);
+    });
+
+    test("getUserById returns a user", async () => {
+        const req = mockRequest({}, { id: 1 });
+        const res = mockResponse();
+
+        const userData = { id: 1, username: 'test' };
+        User.getById.mockResolvedValue(userData);
+
+        await UserController.getUserById(req, res);
+
+        expect(res.json).toHaveBeenCalledWith(userData);
+    });
+
+    test("createUser creates and returns a user", async () => {
+        const req = mockRequest({
+            email: 'test@example.com',
+            username: 'test',
+            password: 'password',
+            isStudent: true,
+            isTeacher: false,
+        });
+        const res = mockResponse();
+
+        const userData = { id: 1, username: 'test', password: 'password', isStudent: true, isTeacher: false };
+        User.create.mockResolvedValue(userData);
+
+        await UserController.createUser(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(201);
+        expect(res.json).toHaveBeenCalledWith(userData);
+    });
+
+    test("deleteUser deletes a user", async () => {
+        const req = mockRequest({}, { id: 1 });
+        const res = mockResponse();
+
+        const userData = { id: 1, username: 'test', password: 'password', isStudent: true, isTeacher: false, delete: jest.fn().mockResolvedValue() };
+        User.getById.mockResolvedValue(userData);
+
+        await UserController.deleteUser(req, res);
+
+        expect(userData.delete).toHaveBeenCalled();
+        expect(res.json).toHaveBeenCalledWith({ message: 'User deleted successfully.' });
     });
 
     test("getAllClasses returns classes", async () => {

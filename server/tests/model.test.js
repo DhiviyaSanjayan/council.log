@@ -1,6 +1,6 @@
 const User = require("../models/Users");
 const Classes = require("../models/Classes");
-
+const Registration = require("../models/Registration");
 
 
 
@@ -165,4 +165,77 @@ describe('Classes Model', () => {
         expect(clas).toBeUndefined();
     });
 
+});
+
+
+describe('Registration Model', () => {
+    let testUser;
+    let testClass;
+
+    beforeAll(async () => {
+        // Create a test user and a test class for the registration
+        testUser = await User.create({
+            first_name: 'Test', 
+            last_name: 'User', 
+            email: 'testuser@example.com', 
+            username: 'testuser', 
+            password: 'password', 
+            is_student: true, 
+            is_teacher: false
+        });
+
+        testClass = await new Classes({
+            category: 'Test Category', 
+            class_name: 'Test Class', 
+            class_time: '2023-07-10 10:00:00', 
+            address: 'Test Address', 
+            duration: 1, 
+            description: 'Test Description', 
+            teacher_id: 1
+        }).create();
+    });
+
+    afterAll(async () => {
+        // Clean up the test database
+        await db.query('DELETE FROM registrations');
+        await testUser.delete();
+        await testClass.delete();
+    });
+
+    it('should get all registrations', async () => {
+        const registrations = await Registration.getAll();
+        expect(registrations.length).toBeGreaterThan(0);
+    });
+
+    it('should get a registration by id', async () => {
+        const registrations = await Registration.getAll();
+        const registration = await Registration.getById(registrations[0].id);
+        expect(registration).not.toBeNull();
+    });
+
+    it('should create a registration', async () => {
+        const registration = await Registration.create({
+            userId: testUser.id,
+            classId: testClass.id,
+            role: 'student'
+        });
+        expect(registration).not.toBeNull();
+    });
+
+    it('should update a registration', async () => {
+        let registrations = await Registration.getAll();
+        let registration = registrations.find(r => r.userId === testUser.id && r.classId === testClass.id);
+        registration.role = 'teacher';
+        registration = await registration.update();
+        expect(registration.role).toBe('teacher');
+    });
+
+    it('should delete a registration', async () => {
+        let registrations = await Registration.getAll();
+        let registration = registrations.find(r => r.userId === testUser.id && r.classId === testClass.id);
+        await registration.delete();
+        registrations = await Registration.getAll();
+        registration = registrations.find(r => r.userId === testUser.id && r.classId === testClass.id);
+        expect(registration).toBeUndefined();
+    });
 });
