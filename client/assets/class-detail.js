@@ -53,7 +53,7 @@ getUser(token).then((user) => {
         (user) => user.id === classInfo.teacher_id
       );
       classTitle.textContent = classInfo.className;
-      teacherName.textContent = `taught by ${teacher.firstName} ${teacher.lastName}`;
+      teacherName.textContent = `${teacher.firstName} ${teacher.lastName}`;
       dateTime.textContent = `${classInfo.classTime.slice(
         0,
         10

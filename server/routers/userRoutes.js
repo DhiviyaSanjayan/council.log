@@ -10,7 +10,7 @@ router.get("/", UserController.getAllUsers);
 router.post("/", UserController.createUser);
 router.put("/:id", UserController.updateUser);
 router.delete("/:id", UserController.deleteUser);
-// router.patch("/:id", UserController.partialUpdateUser);
+router.patch("/:id", UserController.partialUpdateUser);
 router.post("/register", UserController.register);
 router.post("/login", UserController.login);
 router.post("/logout", UserController.logout);
