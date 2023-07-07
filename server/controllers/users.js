@@ -28,7 +28,7 @@ class UserController {
     const { username } = req.body;
     try {
       const user = await User.getByUsername(username);
-
+      console.log(user);
       res.json(user);
     } catch (error) {
       console.log(error);
@@ -95,28 +95,41 @@ class UserController {
     }
   }
 
+  // static async register(req, res) {
+  //   const rounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
+  //   try {
+  //     const data = req.body;
+  //     console.log(data);
+  //     const salt = await bcrypt.genSalt(rounds);
+  //     data.password = await bcrypt.hash(data.password, salt);
+  //     const result = await User.create(data);
+  //     const verificationToken = (await Verification.create(result.id)).token;
+  //     console.log(verificationToken);
+  //     const url = `${process.env.BASE_URL}emailVerification/?token=${verificationToken}`;
+  //     console.log(url);
+  //     const sgApiKey = process.env.SENDGRID_API_KEY;
+  //     sgMail.setApiKey(sgApiKey);
+
+  //     await sgMail.send({
+  //       to: result.email,
+  //       from: `Florin Skills <${process.env.SENDER_EMAIL}>`,
+  //       subject: "Verify your email",
+  //       html: `<div style="width: 70%; margin: 0 auto; "><h6 style="font-size: 18px">Please verify your email by clicking the button:</h6>
+  //         <a style="margin-top:1em; padding: 1em; background-color: #33b249; text-decoration: none ; color: white" href="${url}"> Verify Your Email</a></div>`,
+  //     });
+  //     res.status(201).send(result);
+  //   } catch (error) {
+  //     res.status(400).json({ error: error.message });
+  //   }
+  // }
+
   static async register(req, res) {
     const rounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
     try {
       const data = req.body;
-      console.log(data);
       const salt = await bcrypt.genSalt(rounds);
       data.password = await bcrypt.hash(data.password, salt);
       const result = await User.create(data);
-      const verificationToken = (await Verification.create(result.id)).token;
-      console.log(verificationToken);
-      const url = `${process.env.BASE_URL}emailVerification/?token=${verificationToken}`;
-      console.log(url);
-      const sgApiKey = process.env.SENDGRID_API_KEY;
-      sgMail.setApiKey(sgApiKey);
-
-      await sgMail.send({
-        to: result.email,
-        from: `Florin Skills <${process.env.SENDER_EMAIL}>`,
-        subject: "Verify your email",
-        html: `<div style="width: 70%; margin: 0 auto; "><h6 style="font-size: 18px">Please verify your email by clicking the button:</h6>
-          <a style="margin-top:1em; padding: 1em; background-color: #33b249; text-decoration: none ; color: white" href="${url}"> Verify Your Email</a></div>`,
-      });
       res.status(201).send(result);
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -125,7 +138,7 @@ class UserController {
 
   static async login(req, res) {
     const data = req.body;
-
+    console.log(data);
     try {
       const user = await User.getByUsername(data.username);
       const authenticated = await bcrypt.compare(data.password, user.password);
@@ -192,57 +205,19 @@ class UserController {
     } catch (error) {
       res.status(404).json({ error: "User not found." });
     }
-
   }
   static async checkEmailToken(req, res) {
     const { token } = req.params;
     try {
+      console.log("run");
       const verifiedToken = await Verification.getOneByToken(token);
-      console.log({ verifiedToken });
-      const user = await User.verifyUser(verifiedToken.user_id);
       await Verification.deleteByToken(verifiedToken.token_id);
-      console.log(user);
+      await User.verifyUser(verifiedToken.user_id);
       res.status(200).json({ message: "Token is valid" });
     } catch (error) {
       res.status(400).json(error);
     }
   }
-
-
-
-    static async partialUpdateUser(req, res) {
-        const { id } = req.params;
-        const { username, email, password } = req.body;
-    
-        try {
-          const user = await User.getById(id);
-    
-          if (username) {
-            user.username = username;
-          }
-    
-          if (email) {
-            user.email = email;
-          }
-    
-          if (password) {
-            const rounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
-            const salt = await bcrypt.genSalt(rounds);
-            user.password = await bcrypt.hash(password, salt);
-          }
-    
-          await user.patchUser();
-    
-          res.json({ message: "User information updated successfully." });
-        } catch (error) {
-          console.error("Error updating user:", error);
-          res.status(500).json({ error: "Failed to update user information." });
-        }
-      }
-
-
-
-
 }
 
 module.exports = UserController;
