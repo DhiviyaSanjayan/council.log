@@ -72,6 +72,17 @@ class ClassesController {
             res.status(404).json({ error: 'Class not found.' });
         }
     }
+
+    static async getClassAddressById(req, res) {
+        const { id } = req.params;
+        try {
+          const address = await Class.getAddressById(id);
+          res.json({ address });
+        } catch (error) {
+          res.status(404).json({ error: "Class not found." });
+        }
+      }
+      
 }
 
 module.exports = ClassesController;
