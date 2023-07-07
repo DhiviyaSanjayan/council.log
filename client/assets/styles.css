@@ -348,3 +348,12 @@ table a:hover {
 .student-list-name {
   margin: 10px 0;
 }
+.delete-danger {
+  background-color: red;
+}
+.verified.hidden {
+  display: none;
+}
+.invalid-token.hidden {
+  display: none;
+}

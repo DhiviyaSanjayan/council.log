@@ -7,6 +7,7 @@ const welcomeBack = document.querySelector(".welcome-back");
 logoutBtn.addEventListener("click", (e) => {
   e.preventDefault();
   localStorage.removeItem("token");
+  localStorage.removeItem("userId");
   window.location.replace("./login");
 });
 async function getUser(token) {
@@ -24,13 +25,10 @@ async function getUser(token) {
   return result;
 }
 getUser(token).then((user) => {
-  console.log(user);
-  if (!user.error) {
+  if (!user.error && user.isVerified) {
     greeting.textContent = user.firstName;
     logoutBtn.textContent = "Log Out";
     welcomeBack.textContent = `Welcome back, `;
-  } else {
-    window.location.replace("./login");
   }
 });
 

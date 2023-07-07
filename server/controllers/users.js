@@ -28,7 +28,7 @@ class UserController {
     const { username } = req.body;
     try {
       const user = await User.getByUsername(username);
-      console.log(user);
+
       res.json(user);
     } catch (error) {
       console.log(error);
@@ -125,7 +125,7 @@ class UserController {
 
   static async login(req, res) {
     const data = req.body;
-    console.log(data);
+
     try {
       const user = await User.getByUsername(data.username);
       const authenticated = await bcrypt.compare(data.password, user.password);
@@ -192,19 +192,57 @@ class UserController {
     } catch (error) {
       res.status(404).json({ error: "User not found." });
     }
+
   }
   static async checkEmailToken(req, res) {
-    // const { token } = req.params;
+    const { token } = req.params;
     try {
-      console.log("run");
       const verifiedToken = await Verification.getOneByToken(token);
+      console.log({ verifiedToken });
+      const user = await User.verifyUser(verifiedToken.user_id);
       await Verification.deleteByToken(verifiedToken.token_id);
-      await User.verifyUser(verifiedToken.user_id);
+      console.log(user);
       res.status(200).json({ message: "Token is valid" });
     } catch (error) {
       res.status(400).json(error);
     }
   }
+
+
+
+    static async partialUpdateUser(req, res) {
+        const { id } = req.params;
+        const { username, email, password } = req.body;
+    
+        try {
+          const user = await User.getById(id);
+    
+          if (username) {
+            user.username = username;
+          }
+    
+          if (email) {
+            user.email = email;
+          }
+    
+          if (password) {
+            const rounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
+            const salt = await bcrypt.genSalt(rounds);
+            user.password = await bcrypt.hash(password, salt);
+          }
+    
+          await user.patchUser();
+    
+          res.json({ message: "User information updated successfully." });
+        } catch (error) {
+          console.error("Error updating user:", error);
+          res.status(500).json({ error: "Failed to update user information." });
+        }
+      }
+
+
+
+
 }
 
 module.exports = UserController;

@@ -68,3 +68,5 @@ logoutBtn.addEventListener("click", (e) => {
   localStorage.removeItem("token");
   window.location.replace("../login");
 });
+
+

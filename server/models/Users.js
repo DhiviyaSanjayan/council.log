@@ -155,17 +155,44 @@ class User {
            INNER JOIN registrations 
            ON classes.class_id = registrations.class_id 
            WHERE registrations.user_id = $1 AND classes.class_time > CURRENT_TIMESTAMP`,
+
       [userId]
     );
     return response.rows;
   }
   static async verifyUser(id) {
     const response = await db.query(
-      `UPDATE users SET is_verified = true WHERE user_id = $1`,
+      `UPDATE users SET is_verified = true WHERE user_id = $1 RETURNING *`,
       [id]
     );
+
     return response.rows[0];
   }
+
+      async patchUser() {
+        const query = `
+          UPDATE users
+          SET first_name = $1, last_name = $2, email = $3, username = $4, password = $5,
+              is_student = $6, is_teacher = $7, student_points = $8, teacher_points = $9
+          WHERE user_id = $10
+        `;
+    
+        const values = [
+          this.firstName,
+          this.lastName,
+          this.email,
+          this.username,
+          this.password,
+          this.isStudent,
+          this.isTeacher,
+          this.studentPoints,
+          this.teacherPoints,
+          this.id,
+        ];
+    
+        await db.query(query, values);
+      }
+
 }
 
 module.exports = User;
