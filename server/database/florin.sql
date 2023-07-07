@@ -17,7 +17,7 @@ CREATE TABLE users (
     is_teacher BOOLEAN DEFAULT false,
     student_points INTEGER DEFAULT 0,
     teacher_points INTEGER DEFAULT 0,
-    is_verified BOOLEAN DEFAULT false
+    is_verified BOOLEAN DEFAULT true
 );
 
 CREATE TABLE classes (

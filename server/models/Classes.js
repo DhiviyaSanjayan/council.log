@@ -75,6 +75,18 @@ class Classes {
   async delete() {
     await db.query("DELETE FROM classes WHERE class_id = $1", [this.id]);
   }
+
+  static async getAddressById(id) {
+    const response = await db.query(
+      "SELECT address FROM classes WHERE class_id = $1",
+      [id]
+    );
+    if (response.rows.length !== 1) {
+      throw new Error("Unable to locate class.");
+    }
+    return response.rows[0].address;
+  }
+  
 }
 
 module.exports = Classes;

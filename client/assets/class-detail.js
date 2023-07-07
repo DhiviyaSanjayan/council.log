@@ -10,6 +10,7 @@ const duration = document.querySelector(".duration");
 const description = document.querySelector(".description");
 const address = document.querySelector(".address");
 const joinBtn = document.querySelector(".join-button");
+let classId = new URLSearchParams(window.location.search).get("id")
 async function getUser(token) {
   const res = await fetch("http://localhost:3000/token", {
     method: "POST",
@@ -122,4 +123,44 @@ getUser(token).then((user) => {
   } else {
     window.location.replace("../login");
   }
+});
+
+
+
+// Obtain the address from your API route
+fetch(`http://localhost:3000/class/${classId}/address`)
+  .then(response => response.json())
+  .then(data => {
+    const address = data.address;
+
+
+    console.log(`ADDRESS IS${encodeURIComponent(address)}`)
+    // Use Mapbox Geocoding API to retrieve coordinates for the address
+    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=pk.eyJ1IjoiZWxsaW90Y2xvd2VzIiwiYSI6ImNsanJhbjIwajBndHQzanM1OGx2d2w1azMifQ.ut8qjqZGltsfhsImDTS1Sw`)
+      .then(response => response.json())
+      .then(data => {
+        const coordinates = data.features[0].geometry.coordinates; // Extract the coordinates from the response
+
+        // Initialize the map with the obtained coordinates
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZWxsaW90Y2xvd2VzIiwiYSI6ImNsanJhbjIwajBndHQzanM1OGx2d2w1azMifQ.ut8qjqZGltsfhsImDTS1Sw';
+        const map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/mapbox/streets-v11',
+          center: coordinates,
+          zoom: 15
+        });
+
+        // Add a marker to the map at the specified coordinates
+        new mapboxgl.Marker({
+          color: 'red' // Customize the marker color if desired
+        })
+        .setLngLat(coordinates)
+        .addTo(map);
+    })
+    .catch(error => {
+      console.error('Error retrieving coordinates:', error);
+    });
+})
+.catch(error => {
+  console.error('Error retrieving address:', error);
 });

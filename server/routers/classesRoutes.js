@@ -12,5 +12,7 @@ router.get('/:id', ClassesController.getClassById);
 router.post('/', ClassesController.createClass);
 router.put('/:id', ClassesController.updateClass);
 router.delete('/:id', ClassesController.deleteClass);
+router.get("/:id/address", ClassesController.getClassAddressById);
+
 
 module.exports = router;
